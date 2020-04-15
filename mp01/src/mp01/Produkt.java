@@ -1,6 +1,6 @@
 package mp01;
 
-public abstract class Produkt {
+public abstract class Produkt extends Extension{
 	
 	
 	protected String producent,nazwa_produktu,jednostka_miary,opis;
@@ -10,7 +10,7 @@ public abstract class Produkt {
 	
 	public Produkt(String producent, String nazwa_produktu, String jednostka_miary)
 	{
-		
+		super();
 		this.producent = producent;
 		this.nazwa_produktu = nazwa_produktu;
 		this.jednostka_miary= jednostka_miary;

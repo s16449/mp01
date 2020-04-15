@@ -2,7 +2,7 @@ package mp01;
 
 import java.util.LinkedList;
 
-public class MagazynWysylkowy {
+public class MagazynWysylkowy extends Extension{
 
 	private static MagazynWysylkowy instancja = null;
 
@@ -10,6 +10,7 @@ public class MagazynWysylkowy {
 	LinkedList<Zamowienie> listaZamowienWyslanych = new LinkedList<>();
 
 	private MagazynWysylkowy() {
+		super();
 	};
 
 	public static MagazynWysylkowy getInstanceOf() {

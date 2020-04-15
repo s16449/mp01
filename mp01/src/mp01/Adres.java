@@ -1,6 +1,6 @@
 package mp01;
 
-public class Adres {
+public class Adres extends Extension{
 
 	private String ulica, miejscowosc, kod_pocztowy;
 

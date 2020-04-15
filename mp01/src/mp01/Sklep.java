@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Sklep {
+public class Sklep extends Extension {
 
 	private static Sklep instancja = null;
 
@@ -23,18 +23,18 @@ public class Sklep {
 	}
 
 	public void dodajProdukt(Produkt produkt, Double cena) {
-		listaProduktow.put(produkt, cena);
+		this.listaProduktow.put(produkt, cena);
 	}
 
 	public void usunProdukt(Produkt produkt) {
-		usunieteZoferty.add(produkt);
-		listaProduktow.remove(produkt);
-		dostepnaIlosc.remove(produkt);
+		this.usunieteZoferty.add(produkt);
+		this.listaProduktow.remove(produkt);
+		this.dostepnaIlosc.remove(produkt);
 	}
 
 	public void dodajIloscProduktu(Produkt produkt, Double ilosc) {
 
-		dostepnaIlosc.put(produkt, ilosc);
+		this.dostepnaIlosc.put(produkt, ilosc);
 	}
 
 	public void pokazListeProduktow() {
@@ -51,15 +51,15 @@ public class Sklep {
 	}
 
 	public void zmienCeneProduktu(Produkt produkt, Double cena) {
-		listaProduktow.replace(produkt, cena);
+		this.listaProduktow.replace(produkt, cena);
 	}
 
 	public void zmienIloscProduktu(Produkt produkt, Double ilosc) {
-		dostepnaIlosc.replace(produkt, ilosc);
+		this.dostepnaIlosc.replace(produkt, ilosc);
 	}
 
 	public Double zwrocLiczbeDostepnegoProduktu(Produkt produkt) {
-		return dostepnaIlosc.get(produkt);
+		return this.dostepnaIlosc.get(produkt);
 	}
 
 	public Produkt pobierzProdukt(Produkt produkt, Double ilosc) {
@@ -82,15 +82,17 @@ public class Sklep {
 		}
 		return null;
 	}
-	
-	public void usunPobraneIlosci(Produkt produkt, Double ilosc)
-	{
+
+	public void usunPobraneIlosci(Produkt produkt, Double ilosc) {
 		for (Map.Entry<Produkt, Double> entry : dostepnaIlosc.entrySet()) {
 			if (entry.getKey().getNazwaProduktu() == produkt.getNazwaProduktu() && entry.getValue() >= ilosc) {
-				dostepnaIlosc.replace(produkt, entry.getValue() - ilosc);
-				
+				this.dostepnaIlosc.replace(produkt, entry.getValue() - ilosc);
+
 			}
 
 		}
 	}
+	
+
+
 }

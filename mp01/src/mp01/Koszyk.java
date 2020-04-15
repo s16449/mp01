@@ -3,7 +3,7 @@ package mp01;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Koszyk {
+public class Koszyk extends Extension{
 
 	private static Integer id_koszyk = 1;
 
@@ -12,6 +12,7 @@ public class Koszyk {
 	Sklep sklep = Sklep.getInstanceOf();
 
 	public Koszyk() {
+		super();
 
 	}
 

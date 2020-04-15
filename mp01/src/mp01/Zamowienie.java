@@ -2,7 +2,7 @@ package mp01;
 
 import java.util.Date;
 
-public class Zamowienie {
+public class Zamowienie extends Extension{
 
 	private static Integer count = 1;
 	private String nr_zamowienia; // zmiana daty bedzie zaimplementowana
