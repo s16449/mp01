@@ -2,6 +2,7 @@ package mp01;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,36 +10,67 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Main  {
+public class Main {
+
+	private List<Sklep> sklepLista = new ArrayList<Sklep>();
+	private List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
 
 	public static void main(String[] args)
 			throws ZlaJednostkaException, FileNotFoundException, IOException, ClassNotFoundException {
 		DataCheck dc = new DataCheck();
 		System.out.println(dc.getCurrentFullData());
-		Sklep sklep = Sklep.getInstanceOf();
-
-		MagazynWysylkowy magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
-
-		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new
-		FileInputStream("save.obj")));
-	Sklep.readExtent(in);
-	 System.out.println("file load");
-		 in.close();
-		Klient.getExtent(Karma.class);
-		 Osoba.showExtent(Klient.class);
-		 Osoba.showExtent(Zabawka.class);
-		 Osoba.showExtent(Sklep.class);
-		// Osoba.showExtent(Zabawka.class);
 		
 
-		 
+		List<Sklep> sklepLista = new ArrayList<Sklep>();
+		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
+		Sklep sklep = null;
+		MagazynWysylkowy magazynWysylkowy = null;
+		File file = new File("save.obj");
+		if (file.exists()) {
+			
+			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
+			Sklep.readExtent(in);
+			System.out.println("file load");
+			in.close();
+			
+			
 
-	//	Klient kl = new Klient("Mariusz", "Polak", "503-232-211", "mariuszp@gmail.com",
-	//			new Adres("Opaczewska 55 m 33", "Warszawa", "02-442"), 1, "maniek", "bohnia", null);
-/*
+			sklepLista = Extension.getExtent(Sklep.class);
+			for (Sklep ss : sklepLista) {
+				sklep = ss;
+				
+			}
+
+			magazynLista = Extension.getExtent(MagazynWysylkowy.class);
+			for (MagazynWysylkowy mw : magazynLista) {
+				magazynWysylkowy = mw;
+				//musi brac pierwsze wystapienie, reszta musi byc kasowana
+			}
+		} else {
+
+			sklep = Sklep.getInstanceOf();
+
+			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
+		}
+	
+		Sklep.showExtent(Sklep.class);
+		Sklep.showExtent(MagazynWysylkowy.class);
+		magazynWysylkowy.pokazListeZamowien();
+	/*		
+		Sklep.showExtent(Klient.class);
+		sklep.pokazDostepnaIloscProduktow();
+		System.out.println("-----------");
+		sklep.pokazListeProduktow();
+
+		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com",
+				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), 1, "stef", "bohnia", null);
+
 		Sprzedawca sp;
 		try {
 			sp = new Sprzedawca("Pawel", "pela", "443-232-232", "pelek@jdsg.sd", new Adres(), 1, new Date(0),
@@ -83,7 +115,7 @@ public class Main  {
 		System.out.println("--------------------MAGAZYN--------------");
 
 		System.out.println("--------------------MAGAZYN PO WYSLANIU--------------");
-	
+
 		magazynWysylkowy.pokazListeZamowien();
 		System.out.println("--------------------MAGAZYN PO WYSLANIU--------------");
 
@@ -99,14 +131,15 @@ public class Main  {
 		// sklep.usunProdukt(karma1);
 		System.out.println("\n--------------- PO USUNIECIU PRODUKTU	Z OFERTY ------------");
 		sklep.pokazListeProduktow();
-	*/
-		System.out.println("\n----------ILOSCI ----------------");
-		sklep.pokazDostepnaIloscProduktow();
 
-		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("save.obj")));
-		Osoba.writeExtent(out);
-		out.close();
+		System.out.println("\n----------ILOSCI ----------------");
+
+	*/
 		
+		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+		Osoba.writeExtent(out);
+
+		out.close();
 
 	}
 }
