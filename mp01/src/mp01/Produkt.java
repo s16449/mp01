@@ -10,7 +10,7 @@ public abstract class Produkt extends Extension{
 	
 	public Produkt(String producent, String nazwa_produktu, String jednostka_miary)
 	{
-		super();
+	
 		this.producent = producent;
 		this.nazwa_produktu = nazwa_produktu;
 		this.jednostka_miary= jednostka_miary;

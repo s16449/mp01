@@ -11,52 +11,61 @@ import java.util.Map;
 
 public abstract class Extension implements Serializable {
 
-	private static Map<Class, List<Extension>> allExtents = new Hashtable<>();
-	static List<Extension> extent = new ArrayList();
-
+private static Map<Class, List<Extension>> allExtents = new Hashtable<>();
+	
 	public Extension() {
-
+		List<Extension> extent = null;
 		Class theClass = this.getClass();
-
+		
 		if (allExtents.containsKey(theClass)) {
-			this.extent = allExtents.get(theClass);
-		} else {
-
-			allExtents.put(theClass, this.extent);
+			extent = allExtents.get(theClass);
 		}
-		extent.add(this);
+		else {
+			extent = new ArrayList();
+			allExtents.put(theClass, extent);
+		}
+		extent.add(this); 
 	}
-
+	
+	
 	public static void writeExtent(ObjectOutputStream stream) throws IOException {
 		stream.writeObject(allExtents);
 	}
-
+	
+	
 	public static void readExtent(ObjectInputStream stream) throws IOException, ClassNotFoundException {
-		allExtents =  (Map<Class, List<Extension>>) stream.readObject();
+		allExtents = (Hashtable) stream.readObject();
 	}
-
+	
+	
+	public String toString() {
+		return "Uzupe³niæ metodê toString"; 
+	}
+	
 	public static void showExtent(Class theClass) {
-
+		List<Extension> extent = null;
 		if (allExtents.containsKey(theClass)) {
 			extent = allExtents.get(theClass);
 			for (Object obj : extent) {
 				System.out.println(obj);
 			}
-
-			
-		} else {
-			System.out.println("Brak klasy: " + theClass.toString());
+		}
+		else {
+			System.out.println("Brak klasy: "+theClass.toString());
 		}
 	}
-
-	public static <T> Iterable<T> getExtent(Class<T> type) throws ClassNotFoundException {
-		if (allExtents.containsKey(type)) {
-			return (Iterable<T>) allExtents.get(type);
+	
+	public static <T> List<T> getExtent(Class theClass) {
+		List<Extension> extent = null;
+		if (allExtents.containsKey(theClass)) {
+			extent = allExtents.get(theClass);
+			for(Extension cl:extent) {
+			System.out.println(theClass.toString() + " " + cl);
+			}
 		}
-
-		throw new ClassNotFoundException(String.format("%s. Stored extents: %s", type.toString(), allExtents.keySet()));
+		else {
+			System.out.println("Brak klasy: "+theClass.toString());
+		}
+		return (List<T>) extent;
 	}
-	
-	
-
 }

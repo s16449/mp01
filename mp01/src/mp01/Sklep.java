@@ -92,7 +92,8 @@ public class Sklep extends Extension {
 
 		}
 	}
-	
 
-
+	public String toString() {
+		return "Sklep dla zwierzakow";
+	}
 }

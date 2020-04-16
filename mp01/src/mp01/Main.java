@@ -22,19 +22,23 @@ public class Main  {
 
 		MagazynWysylkowy magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
 
-//		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new
-//		FileInputStream("save.obj")));
-//		Sklep.readExtent(in);
-//		 System.out.println("file load");
-//		 in.close();
-		 Sklep.getExtent(Sklep.class);
-		 Sklep.showExtent(Sklep.class);
+		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new
+		FileInputStream("save.obj")));
+	Sklep.readExtent(in);
+	 System.out.println("file load");
+		 in.close();
+		Klient.getExtent(Karma.class);
+		 Osoba.showExtent(Klient.class);
+		 Osoba.showExtent(Zabawka.class);
+		 Osoba.showExtent(Sklep.class);
+		// Osoba.showExtent(Zabawka.class);
+		
 
 		 
 
-		Klient kl = new Klient("Mariusz", "Polak", "503-232-211", "mariuszp@gmail.com",
-				new Adres("Opaczewska 55 m 33", "Warszawa", "02-442"), 1, "maniek", "bohnia", null);
-
+	//	Klient kl = new Klient("Mariusz", "Polak", "503-232-211", "mariuszp@gmail.com",
+	//			new Adres("Opaczewska 55 m 33", "Warszawa", "02-442"), 1, "maniek", "bohnia", null);
+/*
 		Sprzedawca sp;
 		try {
 			sp = new Sprzedawca("Pawel", "pela", "443-232-232", "pelek@jdsg.sd", new Adres(), 1, new Date(0),
@@ -95,19 +99,14 @@ public class Main  {
 		// sklep.usunProdukt(karma1);
 		System.out.println("\n--------------- PO USUNIECIU PRODUKTU	Z OFERTY ------------");
 		sklep.pokazListeProduktow();
-	
+	*/
 		System.out.println("\n----------ILOSCI ----------------");
 		sklep.pokazDostepnaIloscProduktow();
 
 		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("save.obj")));
-
 		Osoba.writeExtent(out);
-		Produkt.writeExtent(out);
-		MagazynWysylkowy.writeExtent(out);
-		Zamowienie.writeExtent(out);
-		Koszyk.writeExtent(out);
-		Sklep.writeExtent(out);
 		out.close();
+		
 
 	}
 }

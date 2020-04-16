@@ -10,7 +10,7 @@ public class MagazynWysylkowy extends Extension{
 	LinkedList<Zamowienie> listaZamowienWyslanych = new LinkedList<>();
 
 	private MagazynWysylkowy() {
-		super();
+	
 	};
 
 	public static MagazynWysylkowy getInstanceOf() {
@@ -40,6 +40,11 @@ public class MagazynWysylkowy extends Extension{
 				listaZamowienOczekujacych.remove(ls);
 			}
 		}
+	}
+	
+	public String toString()
+	{
+		return "Magazyn Wysylkowy";
 	}
 
 }

@@ -12,7 +12,7 @@ public class Koszyk extends Extension{
 	Sklep sklep = Sklep.getInstanceOf();
 
 	public Koszyk() {
-		super();
+	
 
 	}
 
@@ -35,4 +35,6 @@ public class Koszyk extends Extension{
 	public Integer zwrocIdKoszyka() {
 		return id_koszyk;
 	}
+	
+	
 }
