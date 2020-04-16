@@ -8,11 +8,11 @@ public class Koszyk extends Extension {
 	private static Integer id_koszyk = 1;
 
 	Map<Produkt, Double> koszykMap = new HashMap<>();
+	Sklep sklep;
 
-	Sklep sklep = Sklep.getInstanceOf();
-
-	public Koszyk() {
-
+	public Koszyk(Sklep sklep) {
+		this.sklep = sklep;
+		id_koszyk++;
 	}
 
 	public void dodajDoKoszyka(Produkt produkt, Double ilosc) {

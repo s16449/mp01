@@ -66,7 +66,7 @@ public class Extension implements Serializable {
 			extent = allExtents.get(theClass);
 			for (Extension cl : extent) {
 				
-			//	System.out.println(theClass.toString() + " " + cl);
+				System.out.println(theClass.toString() + " " + cl);
 			}
 		} else {
 			System.out.println("Brak klasy: " + theClass.toString());

@@ -14,18 +14,15 @@ import java.nio.file.Files;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
-
-	private List<Sklep> sklepLista = new ArrayList<Sklep>();
-	private List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
 
 	public static void main(String[] args)
 			throws ZlaJednostkaException, FileNotFoundException, IOException, ClassNotFoundException {
 		DataCheck dc = new DataCheck();
 		System.out.println(dc.getCurrentFullData());
-		
 
 		List<Sklep> sklepLista = new ArrayList<Sklep>();
 		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
@@ -33,41 +30,39 @@ public class Main {
 		MagazynWysylkowy magazynWysylkowy = null;
 		File file = new File("save.obj");
 		if (file.exists()) {
-			
+
 			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
 			Sklep.readExtent(in);
 			System.out.println("file load");
 			in.close();
-			
-			
 
-			sklepLista = Extension.getExtent(Sklep.class);
-			for (Sklep ss : sklepLista) {
-				sklep = ss;
-				
-			}
-
-			magazynLista = Extension.getExtent(MagazynWysylkowy.class);
+			magazynLista = MagazynWysylkowy.getExtent(MagazynWysylkowy.class);
 			for (MagazynWysylkowy mw : magazynLista) {
 				magazynWysylkowy = mw;
-				//musi brac pierwsze wystapienie, reszta musi byc kasowana
+				// musi brac pierwsze wystapienie, reszta musi byc kasowana
 			}
+			sklepLista = Sklep.getExtent(Sklep.class);
+			for (Sklep ss : sklepLista) {
+				sklep = ss;
+
+			}
+
 		} else {
 
 			sklep = Sklep.getInstanceOf();
 
 			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
 		}
-	
+
 		Sklep.showExtent(Sklep.class);
 		Sklep.showExtent(MagazynWysylkowy.class);
 		magazynWysylkowy.pokazListeZamowien();
-	/*		
+
 		Sklep.showExtent(Klient.class);
 		sklep.pokazDostepnaIloscProduktow();
 		System.out.println("-----------");
 		sklep.pokazListeProduktow();
-
+/*
 		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com",
 				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), 1, "stef", "bohnia", null);
 
@@ -97,7 +92,7 @@ public class Main {
 		sklep.dodajIloscProduktu(karma2, 14.9 * 3);
 		sklep.dodajIloscProduktu(smaczekMini, 30.0);
 
-		Koszyk kosz = new Koszyk();
+		Koszyk kosz = new Koszyk(sklep);
 		kosz.dodajDoKoszyka(karma2, 6.0);
 		kosz.dodajDoKoszyka(pilka, 444.0);
 		kosz.dodajDoKoszyka(pilka, 4.0);
@@ -133,9 +128,7 @@ public class Main {
 		sklep.pokazListeProduktow();
 
 		System.out.println("\n----------ILOSCI ----------------");
-
-	*/
-		
+*/
 		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 		Osoba.writeExtent(out);
 
