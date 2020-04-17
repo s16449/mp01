@@ -16,123 +16,150 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args)
-			throws ZlaJednostkaException, FileNotFoundException, IOException, ClassNotFoundException {
+	public static void main(String[] args) throws Exception {
 		DataCheck dc = new DataCheck();
 		System.out.println(dc.getCurrentFullData());
-
 		List<Sklep> sklepLista = new ArrayList<Sklep>();
 		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
 		Sklep sklep = null;
 		MagazynWysylkowy magazynWysylkowy = null;
 		File file = new File("save.obj");
-		if (file.exists()) {
-
-			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
-			Sklep.readExtent(in);
-			System.out.println("file load");
-			in.close();
-
-			magazynLista = MagazynWysylkowy.getExtent(MagazynWysylkowy.class);
-			for (MagazynWysylkowy mw : magazynLista) {
-				magazynWysylkowy = mw;
-				// musi brac pierwsze wystapienie, reszta musi byc kasowana
-			}
-			sklepLista = Sklep.getExtent(Sklep.class);
-			for (Sklep ss : sklepLista) {
-				sklep = ss;
-
-			}
-
-		} else {
-
-			sklep = Sklep.getInstanceOf();
-
-			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
-		}
-
-		Sklep.showExtent(Sklep.class);
-		Sklep.showExtent(MagazynWysylkowy.class);
-		magazynWysylkowy.pokazListeZamowien();
-
-		Sklep.showExtent(Klient.class);
-		sklep.pokazDostepnaIloscProduktow();
-		System.out.println("-----------");
-		sklep.pokazListeProduktow();
-/*
-		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com",
-				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), 1, "stef", "bohnia", null);
-
-		Sprzedawca sp;
-		try {
-			sp = new Sprzedawca("Pawel", "pela", "443-232-232", "pelek@jdsg.sd", new Adres(), 1, new Date(0),
-					"234234234");
-			System.out.println(sp);
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		System.out.println(kl);
+		boolean wlacz = true;
+		Zamowienie zamowienie = null;
 
 		Zabawka pilka = new Zabawka("Tivo", "pilka", "szt");
 		Karma karma1 = new Karma("Brit", "Brit Care Junior Large Breed", "kg");
 		Karma karma2 = new Karma("Brit", "Brit Care Adult Medium Breed", "kg");
 		Smakolyk smaczekMini = new Smakolyk("Brit", "Endurance", "opakowanie");
 
-		sklep.dodajProdukt(pilka, 32.12);
-		sklep.dodajProdukt(smaczekMini, 19.90);
-		sklep.dodajProdukt(karma1, 159.99);
-		sklep.dodajProdukt(karma2, 149.99);
-		sklep.dodajIloscProduktu(pilka, 20.0);
-		sklep.dodajIloscProduktu(karma1, 14.9);
-		sklep.dodajIloscProduktu(karma2, 14.9 * 3);
-		sklep.dodajIloscProduktu(smaczekMini, 30.0);
+		// to musi byc na starcie bo singleton nie zadziala
+		if (file.exists()) {
+			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
+			Sklep.readExtent(in);
+			System.out.println("Plik zaladowany.");
+			in.close();
+			magazynLista = MagazynWysylkowy.getExtent(MagazynWysylkowy.class);
+			for (MagazynWysylkowy mw : magazynLista) {
+				magazynWysylkowy = mw;
+			}
+			sklepLista = Sklep.getExtent(Sklep.class);
+			for (Sklep ss : sklepLista) {
+				sklep = ss;
+			}
+		} else {
+			System.out.println("Brak pliku - tworze nowa instancje.");
+			sklep = Sklep.getInstanceOf();
+			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
+		}
 
-		Koszyk kosz = new Koszyk(sklep);
-		kosz.dodajDoKoszyka(karma2, 6.0);
-		kosz.dodajDoKoszyka(pilka, 444.0);
-		kosz.dodajDoKoszyka(pilka, 4.0);
+		Scanner keyboard = new Scanner(System.in);
+		while (wlacz) {
+			System.out.println(
+					"\nDokonaj wyboru numeru z klawiatury:\n1.Implementacja danych.\n2.Wczytaj Dane z pliku.\n3.Zapisz Dane do pliku.\n4.Wyjdz.\n5.Kasuj plik.\n6.Wyslij zamowienia.\n7.Dodaj zamowienie.\n8.Podglad zamowien w magazynie i ich stanu.\n9.Dodaj rzeczy do sklepu.");
 
-		kosz.pokazZawartoscKoszyka();
+			String test = keyboard.nextLine();
+			switch (test) {
+			case "1":
 
-		Zamowienie zamowienie = new Zamowienie(kl, kosz, "blik", new Date(0));
-		System.out.println(zamowienie.toString());
-		zamowienie.akceptujZamowienie();
+				Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com",
+						new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "stef", "bohnia", null);
+				Klient kl2 = new Klient("Czeslaw", "Burczymucha", "503-222-111", "czesio@gmail.com",
+						new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "czes", "czeslaw", "512-1233-12312");
 
-		System.out.println("--------------------MAGAZYN--------------");
-		magazynWysylkowy.dodajDoListy(zamowienie);
-		magazynWysylkowy.pokazListeZamowien();
-		magazynWysylkowy.wyslijZamowienia();
-		System.out.println("--------------------MAGAZYN--------------");
+				Sprzedawca sp = new Sprzedawca("Pawel", "pela", "443-232-232", "pelek@jdsg.sd", new Adres(), 1,
+						new Date(0), "234234234");
 
-		System.out.println("--------------------MAGAZYN PO WYSLANIU--------------");
+				Koszyk kosz = new Koszyk(sklep);
+				kosz.dodajDoKoszyka(karma1, 1.0);
+				kosz.dodajDoKoszyka(pilka, 444.0); // to wiadomo nie przechodzi
+				kosz.dodajDoKoszyka(pilka, 4.0); // wiadomo ze nie doda 4.5 sztuki pilki , ale to bedzie zweryfikowane
+													// przy gui;
+				kosz.pokazZawartoscKoszyka();
+				System.out.println("koszt koszyka : " + kosz.pokazKosztKoszyka());
 
-		magazynWysylkowy.pokazListeZamowien();
-		System.out.println("--------------------MAGAZYN PO WYSLANIU--------------");
+				zamowienie = new Zamowienie(kl, kosz, "blik", new Date(0));
 
-		System.out.println("\n-------------PO DODANIU PRODUKTOW Z CENAMI --------------");
-		sklep.pokazListeProduktow();
-		System.out.println("\n----------PO DODANIU ILOSCI ----------------");
-		sklep.pokazDostepnaIloscProduktow();
+				zamowienie.akceptujZamowienie();
 
-		sklep.zmienCeneProduktu(pilka, 245.0);
-		System.out.println("\n--------------- PO ZMIANIE CENY ------------");
-		sklep.pokazListeProduktow();
+				System.out.println("\n-------------PO DODANIU PRODUKTOW : CENY --------------");
+				sklep.pokazListeProduktow();
+				System.out.println("\n-------------PO DODANIU PRODUKTOW : ILOSCI --------------");
+				sklep.pokazDostepnaIloscProduktow();
+				System.out.println("\n----------Dostepna ilosc dla karma1 ----------------");
+				sklep.pokazDostepnaIloscProduktow(karma1);
+				break;
+			case "2":
+				if (file.exists())
 
-		// sklep.usunProdukt(karma1);
-		System.out.println("\n--------------- PO USUNIECIU PRODUKTU	Z OFERTY ------------");
-		sklep.pokazListeProduktow();
+				{
+					ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
+					Sklep.readExtent(in);
+					System.out.println("file load");
+					in.close();
 
-		System.out.println("\n----------ILOSCI ----------------");
-*/
-		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-		Osoba.writeExtent(out);
+					magazynLista = MagazynWysylkowy.getExtent(MagazynWysylkowy.class);
+					for (MagazynWysylkowy mw : magazynLista) {
+						magazynWysylkowy = mw;
 
-		out.close();
+					}
+					sklepLista = Sklep.getExtent(Sklep.class);
+					for (Sklep ss : sklepLista) {
+						sklep = ss;
+					}
+				} else {
+					sklep = Sklep.getInstanceOf();
+					magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
+				}
+				System.out.println("Stan po wgraniu pliku :");
+				Osoba.showExtent(Klient.class);
+				Osoba.showExtent(Sprzedawca.class);
+				Osoba.showExtent(Koszyk.class);
 
+				break;
+			case "3":
+				ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+				Osoba.writeExtent(out);
+
+				out.close();
+				break;
+			case "4":
+				wlacz = false;
+				keyboard.close();
+
+				break;
+			case "5":
+				file.delete();
+				System.out.println("Plik usuniety.");
+				break;
+			case "6":
+				magazynWysylkowy.wyslijZamowienia();
+				break;
+			case "7":
+				
+				if (zamowienie != null) {
+					magazynWysylkowy.dodajDoListy(zamowienie);
+					zamowienie.akceptujZamowienie();
+				}
+				break;
+			case "8":
+				magazynWysylkowy.pokazListeZamowien();
+				break;
+			case "9":
+				sklep.dodajProdukt(pilka, 32.12);
+				sklep.dodajProdukt(smaczekMini, 19.90);
+				sklep.dodajProdukt(karma1, 159.99);
+				sklep.dodajProdukt(karma2, 149.99);
+				sklep.dodajIloscProduktu(pilka, 5.0);
+				sklep.dodajIloscProduktu(karma1, 14.9);
+				sklep.dodajIloscProduktu(karma2, 14.9 * 3);
+				sklep.dodajIloscProduktu(smaczekMini, 30.0);
+				break;
+			
+			}
+		}
 	}
 }

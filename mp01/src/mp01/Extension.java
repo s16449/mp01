@@ -32,11 +32,6 @@ public class Extension implements Serializable {
 
 	public static void readExtent(ObjectInputStream stream) throws IOException, ClassNotFoundException {
 		allExtents = (Hashtable) stream.readObject();
-		if(allExtents.containsKey(Sklep.class))
-		{
-			
-			System.out.println("Zawiera ");
-		}
 	}
 
 	public String toString() {
@@ -48,25 +43,24 @@ public class Extension implements Serializable {
 		if (allExtents.containsKey(theClass)) {
 			extent = allExtents.get(theClass);
 			for (Object obj : extent) {
-				System.out.println(obj);
+				System.out.println("Klasa : " + theClass.getName() + " :  " + obj);
 			}
 		} else {
 			System.out.println("Brak klasy: " + theClass.toString());
 		}
 	}
 
-	 public static void clearExtention() {
-	        allExtents.clear();
-	    }
-	 
-	   
+	public static void clearExtention() {
+		allExtents.clear();
+	}
+
 	public static <T> List<T> getExtent(Class theClass) {
 		List<Extension> extent = null;
 		if (allExtents.containsKey(theClass)) {
 			extent = allExtents.get(theClass);
 			for (Extension cl : extent) {
-				
-				System.out.println(theClass.toString() + " " + cl);
+
+				// System.out.println(theClass.toString() + " " + cl);
 			}
 		} else {
 			System.out.println("Brak klasy: " + theClass.toString());
@@ -74,8 +68,19 @@ public class Extension implements Serializable {
 		return (List<T>) extent;
 	}
 	
+	public static Integer getCount(Class theClass) {
+		Integer count = 0;
+		List<Extension> extent = null;
+		if (allExtents.containsKey(theClass)) {
+			extent = allExtents.get(theClass);
+			for (Extension cl : extent) {
+				count++;
+			}
+		} else {
+			System.out.println("Brak klasy: " + theClass.toString());
+		}
 	
-	
-	
+		return count;
+	}
 
 }

@@ -3,8 +3,8 @@ package mp01;
 public abstract class Produkt extends Extension{
 	
 	
-	protected String producent,nazwa_produktu,jednostka_miary,opis;
-	protected Integer idProduktu;
+	public String producent,nazwa_produktu,jednostka_miary,opis;
+	public Integer idProduktu;
 	
 	//jednostka miary bedzie generowana z boxa z okreslonymi mozliwosciami zaznaczenia;
 	

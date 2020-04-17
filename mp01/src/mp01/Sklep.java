@@ -20,9 +20,9 @@ public class Sklep extends Extension {
 	public static Sklep getInstanceOf() {
 
 		if (instancja == null) {
-		
-				instancja = new Sklep();
-			
+
+			instancja = new Sklep();
+
 		}
 		return instancja;
 	}
@@ -45,7 +45,7 @@ public class Sklep extends Extension {
 
 	public void pokazListeProduktow() {
 		for (Map.Entry<Produkt, Double> entry : listaProduktow.entrySet()) {
-			System.out.println("Produkt : " + entry.getKey() + ", Cena : " + entry.getValue() + " PLN");
+			System.out.println("Produkt : " + entry.getKey() + ", Cena : " + entry.getValue().doubleValue() + " PLN");
 		}
 	}
 
@@ -56,12 +56,26 @@ public class Sklep extends Extension {
 		}
 	}
 
+	public void pokazDostepnaIloscProduktow(Produkt produkt) {
+		for (Map.Entry<Produkt, Double> entry : dostepnaIlosc.entrySet()) {
+			if (entry.getKey().getNazwaProduktu() == produkt.getNazwaProduktu()) {
+				System.out.println("Dostepna ilosc danego Produktu : " + entry.getKey() + ", Ilosc : "
+						+ entry.getValue() + " " + entry.getKey().jednostka_miary);
+			}
+		}
+
+	}
+
 	public void zmienCeneProduktu(Produkt produkt, Double cena) {
 		this.listaProduktow.replace(produkt, cena);
 	}
 
 	public void zmienIloscProduktu(Produkt produkt, Double ilosc) {
 		this.dostepnaIlosc.replace(produkt, ilosc);
+	}
+
+	public Double zwrocCeneProduku(Produkt produkt) {
+		return this.listaProduktow.get(produkt);
 	}
 
 	public Double zwrocLiczbeDostepnegoProduktu(Produkt produkt) {
@@ -74,7 +88,6 @@ public class Sklep extends Extension {
 			if (entry.getKey().getNazwaProduktu() == produkt.getNazwaProduktu() && entry.getValue() >= ilosc) {
 				return entry.getKey();
 			}
-
 		}
 		return null;
 	}
@@ -93,9 +106,7 @@ public class Sklep extends Extension {
 		for (Map.Entry<Produkt, Double> entry : dostepnaIlosc.entrySet()) {
 			if (entry.getKey().getNazwaProduktu() == produkt.getNazwaProduktu() && entry.getValue() >= ilosc) {
 				this.dostepnaIlosc.replace(produkt, entry.getValue() - ilosc);
-
 			}
-
 		}
 	}
 

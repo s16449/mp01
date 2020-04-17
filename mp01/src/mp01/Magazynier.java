@@ -3,7 +3,7 @@ package mp01;
 import java.util.Date;
 
 public class Magazynier extends Pracownik {
-	public static int id_magazyniera = 0 ;
+	public Integer id_magazyniera = Extension.getCount(this.getClass());
 	
 	
 	public Magazynier(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres, int umowa,

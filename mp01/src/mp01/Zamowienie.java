@@ -4,10 +4,9 @@ import java.util.Date;
 
 public class Zamowienie extends Extension{
 
-	private static Integer count = 1;
 	private String nr_zamowienia; // zmiana daty bedzie zaimplementowana
 	private boolean zatwierdzenie = false;
-	// MagazynWysylkowy magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
+	private Integer count = Extension.getCount(this.getClass());
 
 	private String forma_platnosci; // przelew, blik, payu;
 	Date dataZamowienia, dataDostawy; // data dostawy bedzie tez zaimplementowana
@@ -19,7 +18,8 @@ public class Zamowienie extends Extension{
 		this.koszyk = koszyk;
 		this.forma_platnosci = forma_platnosci;
 		this.dataZamowienia = dataZamowienia;
-		nr_zamowienia = "Z/" + count++ + "/2020";
+		nr_zamowienia = "Z/" + count + "/2020";
+		
 	}
 
 	public void akceptujZamowienie() {
@@ -34,6 +34,12 @@ public class Zamowienie extends Extension{
 	public String toString() {
 		return "Zamowienie nr : " + nr_zamowienia + " " + klient.toString() + " " + koszyk.zwrocIdKoszyka() + " "
 				+ forma_platnosci + " " + dataZamowienia;
+	}
+	
+	public Double podliczZamowienie()
+	{
+		Double cena = 0.0;
+		return cena;
 	}
 
 }

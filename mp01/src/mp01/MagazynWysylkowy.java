@@ -37,9 +37,9 @@ public class MagazynWysylkowy extends Extension{
 		for (Zamowienie ls : listaZamowienOczekujacych) {
 			if (ls.sprawdzZatwierdzenie()) {
 				listaZamowienWyslanych.add(ls);
-				listaZamowienOczekujacych.remove(ls);
+			
 			}
-		}
+		}listaZamowienOczekujacych.clear();;
 	}
 	
 	public String toString()
