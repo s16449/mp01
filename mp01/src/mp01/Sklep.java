@@ -8,10 +8,10 @@ public class Sklep extends Extension {
 
 	private static Sklep instancja = null;
 
-	Map<Produkt, Double> listaProduktow = new HashMap<>();
-	Map<Produkt, Double> dostepnaIlosc = new HashMap<>();
-	ArrayList<Produkt> usunieteZoferty = new ArrayList<>();
-	Integer count = 0;
+	private Map<Produkt, Double> listaProduktow = new HashMap<>();
+	private Map<Produkt, Double> dostepnaIlosc = new HashMap<>();
+	private ArrayList<Produkt> usunieteZoferty = new ArrayList<>();
+	private Integer count = 0;
 
 	private Sklep() {
 
@@ -27,8 +27,10 @@ public class Sklep extends Extension {
 		return instancja;
 	}
 
-	public void dodajProdukt(Produkt produkt, Double cena) {
-		this.listaProduktow.put(produkt, cena);
+	public void dodajProdukt(Produkt produkt, Double cena_netto) {
+		
+		
+		this.listaProduktow.put(produkt, cenaBrutto(cena_netto));
 		count++;
 	}
 
@@ -113,4 +115,11 @@ public class Sklep extends Extension {
 	public String toString() {
 		return "Sklep dla zwierzakow, ilosc produktow w asortymencie = " + count;
 	}
+	
+	public Double cenaBrutto(Double cena)
+	{
+		return cena += cena*(22/100.0);
+	}
+	
+	
 }

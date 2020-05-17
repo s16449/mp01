@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,9 @@ import java.util.Map;
 public class Extension implements Serializable {
 
 	private static Map<Class, List<Extension>> allExtents = new Hashtable<>();
-
+	private static Map<Klient, Koszyk> lista = new HashMap<>();
+	private static String klient = "";
+	private static Double kosz = 0.0;
 	public Extension() {
 		List<Extension> extent = null;
 		Class theClass = this.getClass();
@@ -82,5 +85,30 @@ public class Extension implements Serializable {
 	
 		return count;
 	}
+	
+	public void dodajDoListyWszystkichKlientow(Klient klient , Koszyk koszyk)
+	{
+		lista.put(klient, koszyk);
+	}
+	
+	public void pokazNajlepszegoKlienta() { // najdrozsze zakupy
+
+		for (Map.Entry<Klient, Koszyk> entry : lista.entrySet()) { // => to nie ma sensu - powinna byc lista koszykow jezeli juz ,dlatego nadpisuje koszyk ciagle
+
+			if (entry.getValue().zwrocKosztKoszyka() < kosz) {
+				System.out.println("uruchamia");
+				kosz = entry.getValue().zwrocKosztKoszyka();
+				klient = entry.getKey().toString();
+			} else {
+				if (!lista.isEmpty()) {
+					kosz = entry.getValue().zwrocKosztKoszyka();
+					klient = entry.getKey().toString();
+				}
+			}
+			System.out.println("Najlepszy klient : " + klient+ " zrobi³ jednorazowo zakupy na kwotê : " + kosz);
+
+		}
+	}
+
 
 }

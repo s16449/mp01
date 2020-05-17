@@ -2,8 +2,10 @@ package mp01;
 
 public abstract class Osoba extends Extension{
 
-	public String imie, nazwisko, nr_telefonu, adresEmail;
-	public Adres adres = new Adres();
+	protected String imie, nazwisko;
+	protected String nr_telefonu;
+	protected String adresEmail;
+	protected Adres adres = new Adres();
 
 	public Osoba(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres) {
 	

@@ -36,7 +36,7 @@ public class Koszyk extends Extension {
 		}
 	}
 	
-	public Double pokazKosztKoszyka()
+	public Double zwrocKosztKoszyka()
 	{
 		return koszt;
 	}

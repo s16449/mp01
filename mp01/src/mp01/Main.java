@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,8 +22,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		DataCheck dc = new DataCheck();
-		System.out.println(dc.getCurrentFullData());
+
 		List<Sklep> sklepLista = new ArrayList<Sklep>();
 		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
 		Sklep sklep = null;
@@ -30,9 +30,14 @@ public class Main {
 		File file = new File("save.obj");
 		boolean wlacz = true;
 		Zamowienie zamowienie = null;
-
+		// Karma karma1;
 		Zabawka pilka = new Zabawka("Tivo", "pilka", "szt");
+		// {
 		Karma karma1 = new Karma("Brit", "Brit Care Junior Large Breed", "kg");
+		// } catch (Exception e) {
+		// System.out.println(e);
+		// }
+
 		Karma karma2 = new Karma("Brit", "Brit Care Adult Medium Breed", "kg");
 		Smakolyk smaczekMini = new Smakolyk("Brit", "Endurance", "opakowanie");
 
@@ -66,22 +71,27 @@ public class Main {
 			case "1":
 
 				Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com",
-						new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "stef", "bohnia", null);
+						new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "stef", "bohnia");
 				Klient kl2 = new Klient("Czeslaw", "Burczymucha", "503-222-111", "czesio@gmail.com",
 						new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "czes", "czeslaw", "512-1233-12312");
 
-				Sprzedawca sp = new Sprzedawca("Pawel", "pela", "443-232-232", "pelek@jdsg.sd", new Adres(), 1,
-						new Date(0), "234234234");
-
+				Sprzedawca sp = new Sprzedawca("Pawel", "pela", "443-232-232", "pelek@jdsg.sd", new Adres(),
+						LocalDate.of(1990, 2, 1), LocalDate.now(), LocalDate.of(2020, 9, 1), "234234234");
+				Sprzedawca sp2 = new Sprzedawca("Roman", "tos", "323-131-111", "romek@jdsg.sd", new Adres("Parzeniwska 12", "Pruszków","03-121"),
+						LocalDate.of(1990, 2, 1), LocalDate.now(), "234234234");
+				
+				
+				System.out.println(sp);
+				
 				Koszyk kosz = new Koszyk(sklep);
 				kosz.dodajDoKoszyka(karma1, 1.0);
 				kosz.dodajDoKoszyka(pilka, 444.0); // to wiadomo nie przechodzi
 				kosz.dodajDoKoszyka(pilka, 4.0); // wiadomo ze nie doda 4.5 sztuki pilki , ale to bedzie zweryfikowane
 													// przy gui;
 				kosz.pokazZawartoscKoszyka();
-				System.out.println("koszt koszyka : " + kosz.pokazKosztKoszyka());
+				System.out.println("koszt koszyka : " + kosz.zwrocKosztKoszyka());
 
-				zamowienie = new Zamowienie(kl, kosz, "blik", new Date(0));
+				zamowienie = new Zamowienie(kl, kosz, "blik", LocalDate.now());
 
 				zamowienie.akceptujZamowienie();
 
@@ -139,11 +149,13 @@ public class Main {
 				magazynWysylkowy.wyslijZamowienia();
 				break;
 			case "7":
-				
+
 				if (zamowienie != null) {
 					magazynWysylkowy.dodajDoListy(zamowienie);
 					zamowienie.akceptujZamowienie();
+					
 				}
+				zamowienie.pokazNajlepszegoKlienta();
 				break;
 			case "8":
 				magazynWysylkowy.pokazListeZamowien();
@@ -158,7 +170,7 @@ public class Main {
 				sklep.dodajIloscProduktu(karma2, 14.9 * 3);
 				sklep.dodajIloscProduktu(smaczekMini, 30.0);
 				break;
-			
+
 			}
 		}
 	}
