@@ -2,6 +2,8 @@ package mp01;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Klient extends Osoba {
 
@@ -10,6 +12,8 @@ public class Klient extends Osoba {
 	protected Double result = null;
 	private List<Double> suma_zakupow = new ArrayList<>();
 	private List<Klient> listaKlientow = new ArrayList<>();
+
+	private Map<String, Zamowienie> kwalifikowana = new TreeMap<>();
 
 	public Klient(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres, String login,
 			String haslo, String numerNip) {
@@ -44,18 +48,32 @@ public class Klient extends Osoba {
 		}
 
 	}
-	
-	public void dodajSumeZakupow(Double suma)
-	{
-		result =+ suma;
+
+	public void dodajSumeZakupow(Double suma) {
+		result = +suma;
 		System.out.println(result + " suma " + suma);
 		suma_zakupow.add(suma); // blad nie sumuje sumy zakupow
 	}
-	
-	public Double zwrocSumeZakupowKlienta()
-	{
+
+	public Double zwrocSumeZakupowKlienta() {
 		return result;
 	}
-   
+
+	public void dodajZmowienie(Zamowienie zamowienie) {
+		if (!kwalifikowana.containsKey(zamowienie)) {
+			kwalifikowana.put(zamowienie.zwrocNrZamowienia(), zamowienie);
+
+			zamowienie.dodajKlienta(this);
+		}
+	}
 	
+	public Zamowienie znajdzZamowienie(String numer) throws Exception
+	{
+		if(!kwalifikowana.containsKey(numer))
+		{
+			throw new Exception("Brak zamowienia o numerze " + numer);
+		}
+		return kwalifikowana.get(numer);
+	}
+
 }

@@ -6,7 +6,7 @@ public class Karma extends Produkt {
 	
 	
 	
-	public Karma(String producent, String nazwa_produktu, String jednostka_miary) throws ZlaJednostkaException {
+	public Karma(Producent producent, String nazwa_produktu, String jednostka_miary) throws ZlaJednostkaException {
 		super(producent, nazwa_produktu, jednostka_miary);
 						
 		if (jednostka_miary != "kg") {

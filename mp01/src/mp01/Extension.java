@@ -10,12 +10,15 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import mp01.Sklep.Koszyk;
+
 public class Extension implements Serializable {
 
 	private static Map<Class, List<Extension>> allExtents = new Hashtable<>();
 	private static Map<Klient, Koszyk> lista = new HashMap<>();
 	private static String klient = "";
 	private static Double kosz = 0.0;
+
 	public Extension() {
 		List<Extension> extent = null;
 		Class theClass = this.getClass();
@@ -23,6 +26,7 @@ public class Extension implements Serializable {
 		if (allExtents.containsKey(theClass)) {
 			extent = allExtents.get(theClass);
 		} else {
+			
 			extent = new ArrayList();
 			allExtents.put(theClass, extent);
 		}
@@ -70,7 +74,7 @@ public class Extension implements Serializable {
 		}
 		return (List<T>) extent;
 	}
-	
+
 	public static Integer getCount(Class theClass) {
 		Integer count = 0;
 		List<Extension> extent = null;
@@ -82,18 +86,18 @@ public class Extension implements Serializable {
 		} else {
 			System.out.println("Brak klasy: " + theClass.toString());
 		}
-	
+
 		return count;
 	}
-	
-	public void dodajDoListyWszystkichKlientow(Klient klient , Koszyk koszyk)
-	{
+
+	public void dodajDoListyWszystkichKlientow(Klient klient, Koszyk koszyk) {
 		lista.put(klient, koszyk);
 	}
-	
+
 	public void pokazNajlepszegoKlienta() { // najdrozsze zakupy
 
-		for (Map.Entry<Klient, Koszyk> entry : lista.entrySet()) { // => to nie ma sensu - powinna byc lista koszykow jezeli juz ,dlatego nadpisuje koszyk ciagle
+		for (Map.Entry<Klient, Koszyk> entry : lista.entrySet()) { // => to nie ma sensu - powinna byc lista koszykow
+																	// jezeli juz ,dlatego nadpisuje koszyk ciagle
 
 			if (entry.getValue().zwrocKosztKoszyka() < kosz) {
 				System.out.println("uruchamia");
@@ -105,10 +109,9 @@ public class Extension implements Serializable {
 					klient = entry.getKey().toString();
 				}
 			}
-			System.out.println("Najlepszy klient : " + klient+ " zrobi³ jednorazowo zakupy na kwotê : " + kosz);
+			System.out.println("Najlepszy klient : " + klient + " zrobi³ jednorazowo zakupy na kwotê : " + kosz);
 
 		}
 	}
-
 
 }

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Sprzedawca extends Pracownik {
 
 	public Integer id_sprzedawcy = Extension.getCount(this.getClass());
-
+	public Pracuje pracuje;
 	public Sprzedawca(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres,
 			LocalDate dataUrodzenia, LocalDate dataOd, LocalDate dataDo, String pesel) throws Exception {
 		super(imie, nazwisko, nr_telefonu, adresEmail, adres, dataUrodzenia, dataOd, dataDo, pesel);

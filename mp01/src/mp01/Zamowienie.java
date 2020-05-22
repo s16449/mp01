@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mp01.Sklep.Koszyk;
+
 public class Zamowienie extends Extension {
 
 	private String nr_zamowienia; // zmiana daty bedzie zaimplementowana
@@ -17,12 +19,16 @@ public class Zamowienie extends Extension {
 	private static List<Klient> listaKlientow = new ArrayList<>();
 	private LocalDate dataZamowienia, dataDostawy, dataLocal = LocalDate.now(); // data dostawy bedzie tez
 																				// zaimplementowana
+	private ArrayList<Klient> listaKlientow1 = new ArrayList<>();
+
+	private ArrayList<Sklep> sklepLista;
+
 	private Klient klient;
 	private Koszyk koszyk;
 
-	public Zamowienie(Klient klient, Koszyk koszyk, String forma_platnosci, LocalDate dataZamowienia) {
+	public Zamowienie(Klient klient, Koszyk kosz, String forma_platnosci, LocalDate dataZamowienia) {
 		this.klient = klient;
-		this.koszyk = koszyk;
+		this.koszyk = kosz;
 		// this.forma_platnosci = forma_platnosci; => dodac implementacje i zmienna
 		// przechowujaca platnosc
 		this.dataZamowienia = dataZamowienia;
@@ -76,6 +82,14 @@ public class Zamowienie extends Extension {
 			System.out.println("Klientem ktory zrobil najdrozsze zakupy jest : " + klient + " suma o wartosci : "
 					+ result + " PLN");
 		}
+	}
+
+	public String zwrocNrZamowienia() {
+		return nr_zamowienia;
+	}
+
+	public void dodajKlienta(Klient klient) {
+		listaKlientow1.add(klient);
 	}
 
 }

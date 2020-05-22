@@ -19,10 +19,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import mp01.Sklep.Koszyk;
+
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-
 		List<Sklep> sklepLista = new ArrayList<Sklep>();
 		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
 		Sklep sklep = null;
@@ -30,16 +31,16 @@ public class Main {
 		File file = new File("save.obj");
 		boolean wlacz = true;
 		Zamowienie zamowienie = null;
-		// Karma karma1;
-		Zabawka pilka = new Zabawka("Tivo", "pilka", "szt");
-		// {
-		Karma karma1 = new Karma("Brit", "Brit Care Junior Large Breed", "kg");
-		// } catch (Exception e) {
-		// System.out.println(e);
-		// }
-
-		Karma karma2 = new Karma("Brit", "Brit Care Adult Medium Breed", "kg");
-		Smakolyk smaczekMini = new Smakolyk("Brit", "Endurance", "opakowanie");
+//		// Karma karma1;
+//		Zabawka pilka = new Zabawka("Tivo", "pilka", "szt");
+//		// {
+//		Karma karma1 = new Karma("Brit", "Brit Care Junior Large Breed", "kg");
+//		// } catch (Exception e) {
+//		// System.out.println(e);
+//		// }
+//
+//		Karma karma2 = new Karma("Brit", "Brit Care Adult Medium Breed", "kg");
+//		Smakolyk smaczekMini = new Smakolyk("Brit", "Endurance", "opakowanie");
 
 		// to musi byc na starcie bo singleton nie zadziala
 		if (file.exists()) {
@@ -57,7 +58,7 @@ public class Main {
 			}
 		} else {
 			System.out.println("Brak pliku - tworze nowa instancje.");
-			sklep = Sklep.getInstanceOf();
+			sklep = new Sklep();
 			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
 		}
 
@@ -83,11 +84,11 @@ public class Main {
 				
 				System.out.println(sp);
 				
-				Koszyk kosz = new Koszyk(sklep);
-				kosz.dodajDoKoszyka(karma1, 1.0);
-				kosz.dodajDoKoszyka(pilka, 444.0); // to wiadomo nie przechodzi
-				kosz.dodajDoKoszyka(pilka, 4.0); // wiadomo ze nie doda 4.5 sztuki pilki , ale to bedzie zweryfikowane
-													// przy gui;
+				Koszyk kosz = sklep.utworzKoszyk();
+//				kosz.dodajDoKoszyka(karma1, 1.0);
+//				kosz.dodajDoKoszyka(pilka, 444.0); // to wiadomo nie przechodzi
+//				kosz.dodajDoKoszyka(pilka, 4.0); // wiadomo ze nie doda 4.5 sztuki pilki , ale to bedzie zweryfikowane
+//													// przy gui;
 				kosz.pokazZawartoscKoszyka();
 				System.out.println("koszt koszyka : " + kosz.zwrocKosztKoszyka());
 
@@ -100,7 +101,7 @@ public class Main {
 				System.out.println("\n-------------PO DODANIU PRODUKTOW : ILOSCI --------------");
 				sklep.pokazDostepnaIloscProduktow();
 				System.out.println("\n----------Dostepna ilosc dla karma1 ----------------");
-				sklep.pokazDostepnaIloscProduktow(karma1);
+				//sklep.pokazDostepnaIloscProduktow(karma1);
 				break;
 			case "2":
 				if (file.exists())
@@ -121,7 +122,7 @@ public class Main {
 						sklep = ss;
 					}
 				} else {
-					sklep = Sklep.getInstanceOf();
+					sklep = new Sklep();
 					magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
 				}
 				System.out.println("Stan po wgraniu pliku :");
@@ -161,14 +162,14 @@ public class Main {
 				magazynWysylkowy.pokazListeZamowien();
 				break;
 			case "9":
-				sklep.dodajProdukt(pilka, 32.12);
-				sklep.dodajProdukt(smaczekMini, 19.90);
-				sklep.dodajProdukt(karma1, 159.99);
-				sklep.dodajProdukt(karma2, 149.99);
-				sklep.dodajIloscProduktu(pilka, 5.0);
-				sklep.dodajIloscProduktu(karma1, 14.9);
-				sklep.dodajIloscProduktu(karma2, 14.9 * 3);
-				sklep.dodajIloscProduktu(smaczekMini, 30.0);
+//				sklep.dodajProdukt(pilka, 32.12);
+//				sklep.dodajProdukt(smaczekMini, 19.90);
+//				sklep.dodajProdukt(karma1, 159.99);
+//				sklep.dodajProdukt(karma2, 149.99);
+//				sklep.dodajIloscProduktu(pilka, 5.0);
+//				sklep.dodajIloscProduktu(karma1, 14.9);
+//				sklep.dodajIloscProduktu(karma2, 14.9 * 3);
+//				sklep.dodajIloscProduktu(smaczekMini, 30.0);
 				break;
 
 			}
