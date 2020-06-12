@@ -11,33 +11,48 @@ import mp01.Sklep.Koszyk;
 
 public class Zamowienie extends Extension {
 
-	private String nr_zamowienia; // zmiana daty bedzie zaimplementowana
+	public String nr_zamowienia; // zmiana daty bedzie zaimplementowana
 	private boolean zatwierdzenie = false;
 	private Integer count = Extension.getCount(this.getClass());
 
-	private List<String> forma_platnosci = new ArrayList<>(); // przelew, blik, payu; => dodac implementacje
+	// private List<String> forma_platnosci = new ArrayList<>(); // przelew, blik,
+	// payu; => dodac implementacje
+	String forma_platnosci;
 	private static List<Klient> listaKlientow = new ArrayList<>();
 	private LocalDate dataZamowienia, dataDostawy, dataLocal = LocalDate.now(); // data dostawy bedzie tez
 																				// zaimplementowana
-	private ArrayList<Klient> listaKlientow1 = new ArrayList<>();
 
 	private ArrayList<Sklep> sklepLista;
 
 	private Klient klient;
 	private Koszyk koszyk;
 
+	// musi byc klient
+
 	public Zamowienie(Klient klient, Koszyk kosz, String forma_platnosci, LocalDate dataZamowienia) {
 		this.klient = klient;
 		this.koszyk = kosz;
-		// this.forma_platnosci = forma_platnosci; => dodac implementacje i zmienna
+		this.forma_platnosci = forma_platnosci; // => dodac implementacje i zmienna
 		// przechowujaca platnosc
 		this.dataZamowienia = dataZamowienia;
+		nr_zamowienia = "Z/" + count + "/2020";
+		klient.dodajZmowienie(this);
 
 	}
 
+//	public Zamowienie(Koszyk kosz, String forma_platnosci, LocalDate dataZamowienia) {
+//		
+//		this.koszyk = kosz;
+//		// this.forma_platnosci = forma_platnosci; => dodac implementacje i zmienna
+//		// przechowujaca platnosc
+//		this.dataZamowienia = dataZamowienia;
+//		
+//
+//	}
+
 	public void akceptujZamowienie() {
+
 		zatwierdzenie = true;
-		nr_zamowienia = "Z/" + count + "/2020";
 		dataDostawy = dataLocal.plusDays(4);
 		System.out.println("Zaakceptowano zamowenie nr : " + nr_zamowienia + ", dnia : " + dataLocal
 				+ ", Przwidywana data dostawy : " + dataDostawy);
@@ -88,8 +103,19 @@ public class Zamowienie extends Extension {
 		return nr_zamowienia;
 	}
 
-	public void dodajKlienta(Klient klient) {
-		listaKlientow1.add(klient);
+	public void ustawKlienta(Klient klient) {
+
+		if (klient == null) {
+			this.klient = klient;
+			this.klient.dodajZmowienie(this);
+		}
+	}
+
+	public void usunKlienta(Klient klient) {
+		if (this.klient == klient) {
+			this.klient.usunZamowienie(this);
+			this.klient = null;
+		}
 	}
 
 }

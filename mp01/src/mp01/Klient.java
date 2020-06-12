@@ -60,20 +60,35 @@ public class Klient extends Osoba {
 	}
 
 	public void dodajZmowienie(Zamowienie zamowienie) {
-		if (!kwalifikowana.containsKey(zamowienie)) {
-			kwalifikowana.put(zamowienie.zwrocNrZamowienia(), zamowienie);
+		if (!kwalifikowana.isEmpty()) {
 
-			zamowienie.dodajKlienta(this);
+			if (!kwalifikowana.containsKey(zamowienie.nr_zamowienia)) {
+				kwalifikowana.put(zamowienie.nr_zamowienia, zamowienie);
+				zamowienie.ustawKlienta(this);
+			}
+		} else {
+			kwalifikowana.put(zamowienie.nr_zamowienia, zamowienie);
+			zamowienie.ustawKlienta(this);
+		}
+
+	}
+
+	public Zamowienie znajdzZamowienie(String numer) throws Exception {
+		if (!kwalifikowana.containsKey(numer)) {
+			throw new Exception("Brak zamowienia o numerze " + numer);
+		//	System.out.println("Brak zamowienia o numerze " + numer);
+			//return
+		}
+		System.out.println("znaleziono zamowienie o nr "  + numer);
+		return kwalifikowana.get(numer);
+	}
+
+	public void usunZamowienie(Zamowienie zamowienie) {
+		if (kwalifikowana.containsKey(zamowienie.zwrocNrZamowienia())) {
+			kwalifikowana.remove(zamowienie.zwrocNrZamowienia(), zamowienie);
+			zamowienie.usunKlienta(this);
 		}
 	}
 	
-	public Zamowienie znajdzZamowienie(String numer) throws Exception
-	{
-		if(!kwalifikowana.containsKey(numer))
-		{
-			throw new Exception("Brak zamowienia o numerze " + numer);
-		}
-		return kwalifikowana.get(numer);
-	}
 
 }

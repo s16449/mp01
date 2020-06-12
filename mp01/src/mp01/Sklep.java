@@ -2,6 +2,7 @@ package mp01;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Sklep extends Extension {
@@ -15,24 +16,40 @@ public class Sklep extends Extension {
 	private ArrayList<Zamowienie> listaZamowien;
 	private Integer idSklepu=1;
 	private Pracuje pracuje;
+	private String nazwa;
+	private List<Pracuje> listaPracuje;
+	
+ 	
+	private List<Koszyk> koszyki = new ArrayList<>();
 
 	
 
-	public Sklep() {//getInstanceOf() {
+	public Sklep(String nazwa) {//getInstanceOf() {
 
+		this.nazwa=nazwa;
 		idSklepu++;
+		this.listaPracuje= new ArrayList<Pracuje>();
+	}
+	public void usunKoszyk(Koszyk koszyk)
+	{
+		if(!koszyki.isEmpty())
+		{
+			if(koszyki.contains(koszyk))
+			koszyki.remove(koszyk);
+		}
 	}
 	
 	public Koszyk utworzKoszyk()
 	{
-		Koszyk koszyk = new Sklep.Koszyk();
+		Koszyk koszyk = new Koszyk();
+		koszyki.add(koszyk);
 		return koszyk;
 	}
 
 	public void dodajProdukt(Produkt produkt, Double cena_netto) {
 		
 		
-		this.listaProduktow.put(produkt, cenaBrutto(cena_netto));
+		this.listaProduktow.put(produkt, cena_netto); //mo¿na tutaj zastosowaæ przeliczenie na netto - metoda wykomentowana;
 		count++;
 	}
 
@@ -120,26 +137,49 @@ public class Sklep extends Extension {
 		return "Sklep dla zwierzakow, ilosc produktow w asortymencie = " + count;
 	}
 	
-	public Double cenaBrutto(Double cena)
-	{
-		return cena += cena*(22/100.0);
-	}
+//	public Double cenaBrutto(Double cena)
+//	{
+//		return cena += cena*(22/100.0);
+//	}
 	
 	private Sklep zwrocSklep()
 	{
 		return this;
 	}
 	
-	public class Koszyk extends Extension {
+	public void dodajPracuje(Pracuje pracuje)
+	{
+		if(!listaPracuje.contains(pracuje))
+		{
+			listaPracuje.add(pracuje);
+			pracuje.ustawSklep(this);
+					
+		}
+	}
+	
+	public void usunPracuje(Pracuje pracuje)
+	{
+		if(!listaPracuje.isEmpty())
+		{
+			if(listaPracuje.contains(pracuje))
+			{
+				listaPracuje.remove(pracuje);
+				pracuje.usunSklep(this);
+			}
+		}
+	}
+	
+	protected class Koszyk extends Extension {
 
 		private Integer id_koszyk = 1; // Extension.getCount(this.getClass());
 
-		Map<Produkt, Double> koszykMap = new HashMap<>();
-		Sklep sklep;
-		Integer iloscProduktow = 0;
-		Double koszt = 0.0;
+		private Map<Produkt, Double> koszykMap = new HashMap<>();
+		private Sklep sklep;
+		private Integer iloscProduktow = 0;
+		private Double koszt = 0.0;
 
 		private Koszyk() {
+			id_koszyk++;
 			System.out.println(id_koszyk + " id koszyka");
 			this.sklep = zwrocSklep();
 			
