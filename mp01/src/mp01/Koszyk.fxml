@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutX="16.0" layoutY="73.0" prefHeight="279.0" prefWidth="434.0">
+        <columns>
+          <TableColumn prefWidth="155.0" text="Nazwa" />
+          <TableColumn prefWidth="47.0" text="Ilość" />
+            <TableColumn prefWidth="75.0" text="Jednostka" />
+            <TableColumn prefWidth="73.0" text="Kategoria" />
+            <TableColumn prefWidth="83.0" text="Cena" />
+        </columns>
+      </TableView>
+      <Label layoutX="39.0" layoutY="21.0" text="Zawartość koszyka :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="414.0" layoutY="369.0" text="Ilość produktów w koszyku  : 0" />
+      <Label layoutX="14.0" layoutY="369.0" text="Id koszyka : 1" />
+      <Button layoutX="462.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Usuń z koszyka">
+         <opaqueInsets>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </opaqueInsets>
+      </Button>
+      <Button layoutX="462.0" layoutY="151.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Zobacz Opis" />
+      <Button fx:id="wroc" cacheHint="SPEED" depthTest="DISABLE" layoutX="462.0" layoutY="327.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Wróć">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button layoutX="462.0" layoutY="227.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Przejdź do płatności" />
+      <Label layoutX="182.0" layoutY="369.0" text="Suma zakupów : 0.0 zł" />
+      <Label layoutX="474.0" layoutY="13.0" text="Zalogowany : Gość" />
+   </children>
+</Pane>

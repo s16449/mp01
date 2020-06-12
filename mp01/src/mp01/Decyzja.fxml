@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp01.DecisionController">
+   <children>
+      <Button fx:id="pokazOferte" alignment="CENTER" layoutX="73.0" layoutY="149.0" mnemonicParsing="false" onAction="#pokazOferteSklepu" prefHeight="25.0" prefWidth="353.0" text="Przeglądaj listę dostępnych produktów" />
+      <Label layoutX="73.0" layoutY="51.0" text="Dokonaj wyboru :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="helloLabel" layoutX="14.0" layoutY="14.0" text="Witaj: Gość">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Button fx:id="zawarotscKoszyka" layoutX="368.0" layoutY="221.0" mnemonicParsing="false" onAction="#koszyk" text="Pokaż zawartość koszyka" />
+      <Label fx:id="iloscProduktow" layoutX="23.0" layoutY="225.0" text="Ilosć produktów w koszyku : 0" />
+      <Button fx:id="wyszukaj" layoutX="343.0" layoutY="105.0" mnemonicParsing="false" onAction="#wyszukaj" prefHeight="25.0" prefWidth="86.0" text="Wyszukaj" />
+      <TextField fx:id="poleWyszukiwania" layoutX="73.0" layoutY="105.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="238.0" />
+      <Label fx:id="sumaZakupow" layoutX="204.0" layoutY="225.0" text="Suma zakupów : 0.0 zł" />
+   </children>
+</Pane>

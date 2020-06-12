@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp01.RejestracjaController">
+   <children>
+      <Label layoutX="143.0" layoutY="27.0" text="Rejestracja klienta :">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <VBox layoutX="27.0" layoutY="104.0" prefHeight="359.0" prefWidth="188.0" spacing="10.0">
+         <children>
+            <Label text="* Imię :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="* Nazwisko :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="* Adres e-mail :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="* Numer kontaktowy :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Ulica :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Miejscowość :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Kod pocztowy :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Numer NIP :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="* Login :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="* Haslo :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="215.0" layoutY="104.0" prefHeight="371.0" prefWidth="323.0" spacing="12.0">
+         <children>
+            <TextField fx:id="imieField" />
+            <TextField fx:id="nazwiskoField" />
+            <TextField fx:id="emailFiled" />
+            <TextField fx:id="numerField" />
+            <TextField fx:id="ulicaField" />
+            <TextField fx:id="miejscowoscField" />
+            <TextField fx:id="kodField" />
+            <TextField fx:id="nipField" />
+            <TextField fx:id="loginField" />
+            <TextField fx:id="hasloField" />
+         </children>
+      </VBox>
+      <Button fx:id="zatwierdz" layoutX="396.0" layoutY="537.0" mnemonicParsing="false" onAction="#zatwierdzDane" prefHeight="27.0" prefWidth="142.0" text="Zatwierdź">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="wroc" layoutX="27.0" layoutY="537.0" mnemonicParsing="false" onAction="#wrocDoEkranuLogowania" prefHeight="36.0" prefWidth="169.0" text="Wróć">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="27.0" layoutY="494.0" text="* - dane wymagane do zarejestrowania" />
+      <Label fx:id="pozytywnyWynik" layoutX="397.0" layoutY="498.0" text="Konto Utworzone" textFill="#04ff29">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="greenCircle" fill="#1fff57" layoutX="316.0" layoutY="545.0" radius="20.0" stroke="#00ff48" strokeType="INSIDE" />
+      <Circle fx:id="redCircle" fill="RED" layoutX="316.0" layoutY="545.0" radius="20.0" stroke="RED" strokeType="INSIDE" />
+      <Label fx:id="negatywnyWynik" layoutX="360.0" layoutY="498.0" text="Wprowadź poprawne dane" textFill="#ff0505">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

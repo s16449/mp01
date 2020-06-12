@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="26.0" layoutY="22.0" text="Wyniki wyszukiwania :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" layoutX="466.0" layoutY="70.0" mnemonicParsing="false" text="Dodaj do koszyka" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="466.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Wróć" textAlignment="CENTER" />
+      <Button alignment="CENTER" layoutX="466.0" layoutY="160.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Zobacz Opis" />
+      <Label layoutX="26.0" layoutY="310.0" text="Ilość produktów w koszyku : 0" />
+      <Button layoutX="428.0" layoutY="306.0" mnemonicParsing="false" text="Pokaż zawartość koszyka" />
+      <TableView layoutX="14.0" layoutY="70.0" prefHeight="221.0" prefWidth="434.0">
+         <columns>
+            <TableColumn prefWidth="155.0" text="Nazwa" />
+            <TableColumn prefWidth="47.0" text="Ilość" />
+            <TableColumn prefWidth="75.0" text="Jednostka" />
+            <TableColumn prefWidth="73.0" text="Kategoria" />
+            <TableColumn prefWidth="83.0" text="Cena" />
+         </columns>
+      </TableView>
+      <Label layoutX="231.0" layoutY="310.0" text="Suma zakupów : 0.0 zł" />
+      <Label layoutX="471.0" layoutY="22.0" text="Zalogowany : Gość" />
+   </children>
+</Pane>

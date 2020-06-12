@@ -76,10 +76,10 @@ public class Klient extends Osoba {
 	public Zamowienie znajdzZamowienie(String numer) throws Exception {
 		if (!kwalifikowana.containsKey(numer)) {
 			throw new Exception("Brak zamowienia o numerze " + numer);
-		//	System.out.println("Brak zamowienia o numerze " + numer);
-			//return
+			// System.out.println("Brak zamowienia o numerze " + numer);
+			// return
 		}
-		System.out.println("znaleziono zamowienie o nr "  + numer);
+		System.out.println("znaleziono zamowienie o nr " + numer);
 		return kwalifikowana.get(numer);
 	}
 
@@ -88,7 +88,15 @@ public class Klient extends Osoba {
 			kwalifikowana.remove(zamowienie.zwrocNrZamowienia(), zamowienie);
 			zamowienie.usunKlienta(this);
 		}
+
 	}
-	
+
+	public String zwrocLogin() {
+		return login;
+	}
+
+	public String zwrocHaslo() {
+		return haslo;
+	}
 
 }
