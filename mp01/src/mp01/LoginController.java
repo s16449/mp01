@@ -64,15 +64,17 @@ public class LoginController {
 	@FXML
 	void goToDecisionWindow(ActionEvent event) throws IOException {
 		
-		lista.addAll(Klient.getExtent(Klient.class));
+	lista.addAll(Klient.getExtent(Klient.class));
 
 		for (Klient ls : lista) {
 			System.out.println(passField.getText().toString());
 			System.out.println(ls.zwrocLogin() + " " + ls.zwrocHaslo());
+			
 
 			if (ls.zwrocHaslo().equals(passField.getText().toString())
 					&& ls.zwrocLogin().equals(loginField.getText().toString())) {
 
+				
 				klient = ls.zwrocLogin();
 				zezwolenie = true;
 				

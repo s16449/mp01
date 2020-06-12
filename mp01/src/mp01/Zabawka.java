@@ -3,6 +3,7 @@ package mp01;
 public class Zabawka extends Produkt {
 
 	private Integer idProduktu = 20000 + Extension.getCount(this.getClass());
+	protected String kategoria = "Zabawka";
 
 	public Zabawka(Producent producent, String nazwa_produktu, String jednostka_miary) {
 		super(producent, nazwa_produktu, jednostka_miary);
@@ -24,5 +25,9 @@ public class Zabawka extends Produkt {
 		} else {
 			return idProduktu + " " + nazwa_produktu + " " + "brak podanego producenta" + " " + jednostka_miary;
 		}
+	}
+
+	public String getKategoria() {
+		return kategoria;
 	}
 }

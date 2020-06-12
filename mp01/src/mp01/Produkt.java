@@ -2,7 +2,7 @@ package mp01;
 
 public abstract class Produkt extends Extension {
 
-	protected String nazwa_produktu, jednostka_miary, opis;
+	protected String nazwa_produktu, jednostka_miary, opis, kategoria;
 	protected Producent producent;
 	private Integer idProduktu;
 
@@ -72,5 +72,14 @@ public abstract class Produkt extends Extension {
 		} else {
 			return idProduktu + " " + nazwa_produktu + " " + "brak podanego producenta" + " " + jednostka_miary;
 		}
+	}
+	public String getKategoria()
+	{
+		return kategoria;
+	}
+	
+	public String getJednostka()
+	{
+		return jednostka_miary;
 	}
 }

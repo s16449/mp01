@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Sklep extends Extension {
 
 	//private static Sklep instancja = null;
@@ -12,6 +15,7 @@ public class Sklep extends Extension {
 	private Map<Produkt, Double> listaProduktow = new HashMap<>();
 	private Map<Produkt, Double> dostepnaIlosc = new HashMap<>();
 	private ArrayList<Produkt> usunieteZoferty = new ArrayList<>();
+	
 	private Integer count = 0;
 	private ArrayList<Zamowienie> listaZamowien;
 	private Integer idSklepu=1;
@@ -172,13 +176,15 @@ public class Sklep extends Extension {
 	protected class Koszyk extends Extension {
 
 		private Integer id_koszyk = 1; // Extension.getCount(this.getClass());
-
 		private Map<Produkt, Double> koszykMap = new HashMap<>();
 		private Sklep sklep;
 		private Integer iloscProduktow = 0;
 		private Double koszt = 0.0;
+		//private KoszykController kC = new KoszykController(); //to mi nic nie da
+		
 
 		private Koszyk() {
+			
 			id_koszyk++;
 			System.out.println(id_koszyk + " id koszyka");
 			this.sklep = zwrocSklep();
@@ -190,6 +196,7 @@ public class Sklep extends Extension {
 				koszykMap.put(sklep.pobierzProdukt(produkt, ilosc), sklep.pobierzCene(produkt, ilosc));
 				sklep.usunPobraneIlosci(produkt, ilosc); //ale tylko po akcjeptacji zamowienia
 				koszt += sklep.zwrocCeneProduku(produkt) * ilosc;
+
 			}
 		}
 
@@ -216,7 +223,8 @@ public class Sklep extends Extension {
 		{
 			return "id Koszyka " + id_koszyk + ", zawartosc produktow w koszyku : " + iloscProduktow + ", laczna cena : " + koszt;
 		}
-
+		
+	
 	}
 
 	

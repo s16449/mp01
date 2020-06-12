@@ -1,5 +1,15 @@
 package mp01;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import java.util.ArrayList;
+
+import java.util.List;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,7 +28,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +38,7 @@ import mp01.Sklep.Koszyk;
 public class Main extends Application {
 
 	public static void main(String[] args) throws Exception {
-		
+
 		List<Sklep> sklepLista = new ArrayList<Sklep>();
 		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
 		Sklep sklep = null;
@@ -37,7 +46,7 @@ public class Main extends Application {
 		File file = new File("save.obj");
 		boolean wlacz = true;
 		Zamowienie zamowienie = null;
-
+		
 		if (file.exists()) {
 			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
 			Sklep.readExtent(in);
@@ -57,42 +66,34 @@ public class Main extends Application {
 			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
 		}
 		
-		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com", new Adres(), "stef",
-				"bohnia");
-		Klient kl2 = new Klient("Czeslaw", "Burczymucha", "503-222-111", "czesio@gmail.com",
-				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "czes", "czeslaw", "512-1233-12312");
+//
+//		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com", new Adres(), "stef",
+//				"bohnia");
+//		Klient kl2 = new Klient("Czeslaw", "Burczymucha", "503-222-111", "czesio@gmail.com",
+//				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "czes", "czeslaw", "512-1233-12312");
 
-		if (file.exists())
+		sklep = new Sklep("Zoo");
 
-		{
-			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
-			Sklep.readExtent(in);
-			System.out.println("file load");
-			in.close();
+//		Koszyk kosz = sklep.utworzKoszyk();
+//		Karma pro = new Karma("kokoszka", "kg");
+//		sklep.dodajProdukt(pro, 12.2);
+//		sklep.dodajIloscProduktu(pro, 15.5);
+//
+//		kosz.dodajDoKoszyka(pro, 4.3);
+//
+//		kosz.pokazZawartoscKoszyka();
+		Koszyk.showExtent(Koszyk.class);
+		Koszyk.showExtent(Klient.class);
 
-			magazynLista = MagazynWysylkowy.getExtent(MagazynWysylkowy.class);
-			for (MagazynWysylkowy mw : magazynLista) {
-				magazynWysylkowy = mw;
-
-			}
-//			sklepLista = Sklep.getExtent(Sklep.class);
-//			for (Sklep ss : sklepLista) {
-//				sklep = ss;
-//			}
-		} else {
-			//sklep = Sklep.getInstanceOf();
-			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
-		}
-		System.out.println("Stan po wgraniu pliku :");
-		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-		Osoba.writeExtent(out);
-
-		out.close();
-		Osoba.showExtent(Klient.class);
-		Osoba.showExtent(Sprzedawca.class);
-		Osoba.showExtent(Koszyk.class);
+		
 
 		launch(args);
+		
+		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+		Koszyk.writeExtent(out);
+		out.close();
+		Koszyk.showExtent(Koszyk.class);
+		System.out.println("zapisano");
 	}
 
 	@Override

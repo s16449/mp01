@@ -1,5 +1,6 @@
 package mp01;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -75,7 +76,7 @@ public class RejestracjaController {
 	}
 
 	@FXML
-	void zatwierdzDane(ActionEvent event) {
+	void zatwierdzDane(ActionEvent event) throws FileNotFoundException, IOException {
 		if (utworzone == false) {
 			if (!imieField.getText().toString().isEmpty() && !nazwiskoField.getText().toString().isEmpty()
 					&& !emailFiled.getText().toString().isEmpty() && !numerField.getText().toString().isEmpty()

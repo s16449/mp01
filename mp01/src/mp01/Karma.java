@@ -2,8 +2,8 @@ package mp01;
 
 public class Karma extends Produkt {
 
-	private Integer idProduktu = 10000 + Extension.getCount(this.getClass());
-
+private Integer idProduktu = 10000 + Extension.getCount(this.getClass());
+	protected String kategoria = "Karma";
 	public Karma(Producent producent, String nazwa_produktu, String jednostka_miary) throws ZlaJednostkaException {
 		super(producent, nazwa_produktu, jednostka_miary);
 
@@ -27,6 +27,11 @@ public class Karma extends Produkt {
 		} else {
 			return idProduktu + " " + nazwa_produktu + " " + "brak podanego producenta" + " " + jednostka_miary;
 		}
+	}
+	
+	public String getKategoria()
+	{
+		return kategoria;
 	}
 
 }

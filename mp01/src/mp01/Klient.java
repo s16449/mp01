@@ -1,9 +1,17 @@
 package mp01;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import mp01.Sklep.Koszyk;
 
 public class Klient extends Osoba {
 
@@ -12,27 +20,36 @@ public class Klient extends Osoba {
 	protected Double result = null;
 	private List<Double> suma_zakupow = new ArrayList<>();
 	private List<Klient> listaKlientow = new ArrayList<>();
+	private List<Koszyk> koszyki = new ArrayList<>();
+	private File file = new File("save.obj");
 
 	private Map<String, Zamowienie> kwalifikowana = new TreeMap<>();
 
 	public Klient(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres, String login,
-			String haslo, String numerNip) {
+			String haslo, String numerNip) throws FileNotFoundException, IOException {
 
 		super(imie, nazwisko, nr_telefonu, adresEmail, adres);
 		// this.id_klienta = id_klienta;
 		this.login = login;
 		this.haslo = haslo;
 		this.numerNip = numerNip;
+		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+		Koszyk.writeExtent(out);
+		out.close();
+		Klient.showExtent(Klient.class);
 
 	}
 
 	public Klient(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres, String login,
-			String haslo) {
+			String haslo) throws FileNotFoundException, IOException {
 
 		super(imie, nazwisko, nr_telefonu, adresEmail, adres);
 		// this.id_klienta = id_klienta;
 		this.login = login;
 		this.haslo = haslo;
+		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+		Koszyk.writeExtent(out);
+		out.close();
 
 	}
 
@@ -97,6 +114,11 @@ public class Klient extends Osoba {
 
 	public String zwrocHaslo() {
 		return haslo;
+	}
+	
+	public void dodajKoszyk(Koszyk kosz)
+	{
+		koszyki.add(kosz);
 	}
 
 }
