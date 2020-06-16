@@ -86,7 +86,6 @@ public class Extension implements Serializable {
 		} else {
 			System.out.println("Brak klasy: " + theClass.toString());
 		}
-
 		return count;
 	}
 

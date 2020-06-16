@@ -7,48 +7,48 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp01.OfertaSklepuController">
    <children>
-      <TableView layoutX="31.0" layoutY="127.0" prefHeight="358.0" prefWidth="434.0">
+      <TableView fx:id="tableView" layoutX="31.0" layoutY="127.0" prefHeight="358.0" prefWidth="434.0">
          <columns>
-            <TableColumn prefWidth="155.0" text="Nazwa" />
-            <TableColumn prefWidth="47.0" text="Ilość" />
-            <TableColumn prefWidth="75.0" text="Jednostka" />
-            <TableColumn prefWidth="73.0" text="Kategoria" />
-            <TableColumn prefWidth="83.0" text="Cena" />
+            <TableColumn fx:id="nazwaColumn" prefWidth="155.0" text="Nazwa" />
+            <TableColumn fx:id="iloscColumn" prefWidth="47.0" text="Ilość" />
+            <TableColumn fx:id="jednostkaColumn" prefWidth="75.0" text="Jednostka" />
+            <TableColumn fx:id="kategoriaColumn" prefWidth="73.0" text="Kategoria" />
+            <TableColumn fx:id="cenaColumn" prefWidth="83.0" text="Cena" />
          </columns>
       </TableView>
-      <CheckBox layoutX="31.0" layoutY="78.0" mnemonicParsing="false" text="Karma">
+      <CheckBox fx:id="karmaCheck" layoutX="31.0" layoutY="78.0" mnemonicParsing="false" text="Karma">
          <font>
             <Font size="18.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="145.0" layoutY="78.0" mnemonicParsing="false" text="Zabawka">
+      <CheckBox fx:id="zabawkaCheck" layoutX="145.0" layoutY="78.0" mnemonicParsing="false" text="Zabawka">
          <font>
             <Font size="18.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="270.0" layoutY="78.0" mnemonicParsing="false" text="Smakołyk">
+      <CheckBox fx:id="smakolykCheck" layoutX="270.0" layoutY="78.0" mnemonicParsing="false" text="Smakołyk">
          <font>
             <Font size="18.0" />
          </font>
       </CheckBox>
-      <Button layoutX="490.0" layoutY="79.0" mnemonicParsing="false" text="Wyświetl zaznaczone" />
+      <Button fx:id="wyswietlCheckButton" layoutX="490.0" layoutY="79.0" mnemonicParsing="false" onAction="#wyswietlCheckWtableView" text="Wyświetl zaznaczone" />
       <Label layoutX="31.0" layoutY="24.0" text="Oferta Sklepu :">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="490.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Dodaj do koszyka" />
-      <Button layoutX="490.0" layoutY="281.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Zobacz Opis" />
-      <Label layoutX="199.0" layoutY="542.0" text="Suma zakupów : 0.0 zł" />
-      <Label layoutX="31.0" layoutY="542.0" text="Id koszyka : 1" />
-      <Label layoutX="431.0" layoutY="542.0" text="Ilość produktów w koszyku  : 0" />
-      <Button cacheHint="SPEED" depthTest="DISABLE" layoutX="490.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Wróć">
+      <Button fx:id="dodajDoKoszykaButton" layoutX="490.0" layoutY="206.0" mnemonicParsing="false" onAction="#dodajDoKoszyka" prefHeight="25.0" prefWidth="127.0" text="Dodaj do koszyka" />
+      <Button fx:id="zobaczOpisProduktuButton" layoutX="490.0" layoutY="281.0" mnemonicParsing="false" onAction="#zobaczOpisProduktu" prefHeight="25.0" prefWidth="127.0" text="Zobacz Opis" />
+      <Label fx:id="sumaZakupowLabel" layoutX="199.0" layoutY="542.0" text="Suma zakupów : 0.0 zł" />
+      <Label fx:id="idKoszykaLabel" layoutX="31.0" layoutY="542.0" text="Id koszyka : 1" />
+      <Label fx:id="ileProduktuWkoszykuLabel" layoutX="431.0" layoutY="542.0" text="Ilość produktów w koszyku  : 0" />
+      <Button fx:id="wrocButton" cacheHint="SPEED" depthTest="DISABLE" layoutX="490.0" layoutY="460.0" mnemonicParsing="false" onAction="#wroc" prefHeight="25.0" prefWidth="127.0" text="Wróć">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Label layoutX="504.0" layoutY="24.0" text="Zalogowany : Gość" />
+      <Label fx:id="zalogowanyLabel" layoutX="504.0" layoutY="24.0" text="Zalogowany : Gość" />
    </children>
 </Pane>

@@ -7,7 +7,7 @@ private Integer idProduktu = 10000 + Extension.getCount(this.getClass());
 	public Karma(Producent producent, String nazwa_produktu, String jednostka_miary) throws ZlaJednostkaException {
 		super(producent, nazwa_produktu, jednostka_miary);
 
-		if (jednostka_miary != "kg") {
+		if (jednostka_miary != "kilogram") {
 			throw new ZlaJednostkaException();
 		}
 	}
@@ -15,7 +15,7 @@ private Integer idProduktu = 10000 + Extension.getCount(this.getClass());
 	public Karma(String nazwa_produktu, String jednostka_miary) throws ZlaJednostkaException {
 		super(nazwa_produktu, jednostka_miary);
 
-		if (jednostka_miary != "kg") {
+		if (jednostka_miary != "kilogram") {
 			throw new ZlaJednostkaException();
 		}
 	}

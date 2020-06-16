@@ -69,6 +69,7 @@ public class KoszykController {
 	@FXML
 	private Button zobaczOpis;
 
+	int count = 1;
 	@FXML
 	void initialize() {
 
@@ -124,12 +125,17 @@ public class KoszykController {
 			kosz.add(t);
 		}
 		kosz.add(new Tabela("asd", "assaas", "jednostka", 2.2, 22.2));
+		kosz.add(new Tabela("asd", "assaaaas", "jednostssska", 2.32, 3322.2));
 
 	}
 
 	public ObservableList<Tabela> getKoszyk() {
 		// ObservableList<Tabela> kosz = FXCollections.observableArrayList();
+		count = count++;
+		System.out.println(count);
 		kosz.add(new Tabela("asd", "assaas", "jednostka", 2.2, 22.2));
+		kosz.add(new Tabela("asd", "assaaaas", "jednostssska", 2.32, 3322.2));
+		Koszyk.showExtent(Koszyk.class);
 		return kosz;
 	}
 

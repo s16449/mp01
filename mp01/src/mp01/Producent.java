@@ -2,9 +2,9 @@ package mp01;
 
 import java.util.ArrayList;
 
-public class Producent extends Exception {
+public class Producent extends Extension {
 
-	private Integer id_producenta = 0;
+	private Integer id_producenta =0+ Extension.getCount(this.getClass());
 	private String nazwa;
 	private ArrayList<String> serieProduktow = new ArrayList<>();
 	private ArrayList<Produkt> listaProduktow;
@@ -13,7 +13,7 @@ public class Producent extends Exception {
 	// asocjacja 1 do * strona 1
 
 	public Producent(String nazwa) {
-		id_producenta++;
+		
 		this.nazwa = nazwa;
 		this.listaProduktow = new ArrayList<Produkt>();
 	}

@@ -35,7 +35,7 @@ public class Zamowienie extends Extension {
 		this.forma_platnosci = forma_platnosci; // => dodac implementacje i zmienna
 		// przechowujaca platnosc
 		this.dataZamowienia = dataZamowienia;
-		nr_zamowienia = "Z/" + count + "/2020";
+		nr_zamowienia = "Z/" + count + "/" + LocalDate.now().getYear();
 		klient.dodajZmowienie(this);
 
 	}

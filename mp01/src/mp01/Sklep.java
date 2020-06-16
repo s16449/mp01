@@ -10,50 +10,49 @@ import javafx.collections.ObservableList;
 
 public class Sklep extends Extension {
 
-	//private static Sklep instancja = null;
+	// private static Sklep instancja = null;
 
 	private Map<Produkt, Double> listaProduktow = new HashMap<>();
 	private Map<Produkt, Double> dostepnaIlosc = new HashMap<>();
 	private ArrayList<Produkt> usunieteZoferty = new ArrayList<>();
-	
+
 	private Integer count = 0;
 	private ArrayList<Zamowienie> listaZamowien;
-	private Integer idSklepu=1;
+	private Integer idSklepu = 1;
 	private Pracuje pracuje;
 	private String nazwa;
 	private List<Pracuje> listaPracuje;
-	
- 	
+
 	private List<Koszyk> koszyki = new ArrayList<>();
 
-	
+	public Sklep(String nazwa) {// getInstanceOf() {
 
-	public Sklep(String nazwa) {//getInstanceOf() {
-
-		this.nazwa=nazwa;
+		this.nazwa = nazwa;
 		idSklepu++;
-		this.listaPracuje= new ArrayList<Pracuje>();
+		this.listaPracuje = new ArrayList<Pracuje>();
 	}
-	public void usunKoszyk(Koszyk koszyk)
-	{
-		if(!koszyki.isEmpty())
-		{
-			if(koszyki.contains(koszyk))
-			koszyki.remove(koszyk);
+
+	public String pobierzNazwe() {
+		return nazwa;
+	}
+
+	public void usunKoszyk(Koszyk koszyk) {
+		if (!koszyki.isEmpty()) {
+			if (koszyki.contains(koszyk))
+				koszyki.remove(koszyk);
 		}
 	}
-	
-	public Koszyk utworzKoszyk()
-	{
+
+	public Koszyk utworzKoszyk() {
 		Koszyk koszyk = new Koszyk();
 		koszyki.add(koszyk);
 		return koszyk;
 	}
 
 	public void dodajProdukt(Produkt produkt, Double cena_netto) {
-		
-		
-		this.listaProduktow.put(produkt, cena_netto); //mo¿na tutaj zastosowaæ przeliczenie na netto - metoda wykomentowana;
+
+		this.listaProduktow.put(produkt, cena_netto); // mo¿na tutaj zastosowaæ przeliczenie na netto - metoda
+														// wykomentowana;
 		count++;
 	}
 
@@ -66,6 +65,32 @@ public class Sklep extends Extension {
 	public void dodajIloscProduktu(Produkt produkt, Double ilosc) {
 
 		this.dostepnaIlosc.put(produkt, ilosc);
+	}
+
+	public void utworzTabele(Produkt produkt) {
+		String nazwa = produkt.getNazwaProduktu();
+		Double cena = 0.0;
+		Double ilosc = 0.0;
+		String kategoria = produkt.getKategoria();
+		String jednostka = produkt.getJednostka();
+		for (Map.Entry<Produkt, Double> entry : listaProduktow.entrySet()) {
+			if (entry.getKey().getNazwaProduktu().equals(produkt.getNazwaProduktu())) {
+				// System.out.println("Produkt : " + entry.getKey() + ", Cena : " +
+				// entry.getValue().doubleValue() + " PLN");
+				cena = entry.getValue().doubleValue();
+				System.out.println(cena);
+			}
+		}
+		for (Map.Entry<Produkt, Double> entry : dostepnaIlosc.entrySet()) {
+			if (entry.getKey().getNazwaProduktu().equals(produkt.getNazwaProduktu())) {
+			//	System.out.println("Produkt : " + entry.getKey() + ", Ilosc : " + entry.getValue()
+						//+ entry.getKey().jednostka_miary);
+				ilosc = entry.getValue();
+			}
+		}
+
+		Tabela tab = new Tabela(nazwa, kategoria, jednostka, ilosc, cena);
+		Tabela.showExtent(Tabela.class);
 	}
 	
 	
@@ -140,61 +165,53 @@ public class Sklep extends Extension {
 	public String toString() {
 		return "Sklep dla zwierzakow, ilosc produktow w asortymencie = " + count;
 	}
-	
+
 //	public Double cenaBrutto(Double cena)
 //	{
 //		return cena += cena*(22/100.0);
 //	}
-	
-	private Sklep zwrocSklep()
-	{
+
+	private Sklep zwrocSklep() {
 		return this;
 	}
-	
-	public void dodajPracuje(Pracuje pracuje)
-	{
-		if(!listaPracuje.contains(pracuje))
-		{
+
+	public void dodajPracuje(Pracuje pracuje) {
+		if (!listaPracuje.contains(pracuje)) {
 			listaPracuje.add(pracuje);
 			pracuje.ustawSklep(this);
-					
+
 		}
 	}
-	
-	public void usunPracuje(Pracuje pracuje)
-	{
-		if(!listaPracuje.isEmpty())
-		{
-			if(listaPracuje.contains(pracuje))
-			{
+
+	public void usunPracuje(Pracuje pracuje) {
+		if (!listaPracuje.isEmpty()) {
+			if (listaPracuje.contains(pracuje)) {
 				listaPracuje.remove(pracuje);
 				pracuje.usunSklep(this);
 			}
 		}
 	}
-	
+
 	protected class Koszyk extends Extension {
 
-		private Integer id_koszyk = 1; // Extension.getCount(this.getClass());
+		private Integer id_koszyk = 0 + Extension.getCount(this.getClass());
 		private Map<Produkt, Double> koszykMap = new HashMap<>();
 		private Sklep sklep;
 		private Integer iloscProduktow = 0;
 		private Double koszt = 0.0;
-		//private KoszykController kC = new KoszykController(); //to mi nic nie da
-		
 
 		private Koszyk() {
+
 			
-			id_koszyk++;
 			System.out.println(id_koszyk + " id koszyka");
 			this.sklep = zwrocSklep();
-			
+
 		}
 
 		public void dodajDoKoszyka(Produkt produkt, Double ilosc) {
 			if (sklep.pobierzProdukt(produkt, ilosc) != null && sklep.pobierzCene(produkt, ilosc) != null) {
 				koszykMap.put(sklep.pobierzProdukt(produkt, ilosc), sklep.pobierzCene(produkt, ilosc));
-				sklep.usunPobraneIlosci(produkt, ilosc); //ale tylko po akcjeptacji zamowienia
+				sklep.usunPobraneIlosci(produkt, ilosc); // ale tylko po akcjeptacji zamowienia
 				koszt += sklep.zwrocCeneProduku(produkt) * ilosc;
 
 			}
@@ -209,24 +226,20 @@ public class Sklep extends Extension {
 				}
 			}
 		}
-		
-		public Double zwrocKosztKoszyka()
-		{
+
+		public Double zwrocKosztKoszyka() {
 			return koszt;
 		}
 
 		public Integer zwrocIdKoszyka() {
 			return this.id_koszyk;
 		}
-		
-		public String toString()
-		{
-			return "id Koszyka " + id_koszyk + ", zawartosc produktow w koszyku : " + iloscProduktow + ", laczna cena : " + koszt;
+
+		public String toString() {
+			return "id Koszyka " + id_koszyk + ", zawartosc produktow w koszyku : " + iloscProduktow
+					+ ", laczna cena : " + koszt;
 		}
-		
-	
+
 	}
 
-	
-	
 }
