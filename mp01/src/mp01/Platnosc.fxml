@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp01.PlatnoscController">
+   <children>
+      <Label layoutX="33.0" layoutY="55.0" text="Płatność :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="loginLabel" layoutX="33.0" layoutY="14.0" text="Zalogowany : Gość">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="DokonajPlatnosciButton" layoutX="432.0" layoutY="221.0" mnemonicParsing="false" onAction="#dokonajPlatnosci" prefHeight="25.0" prefWidth="141.0" text="Dokonaj płatności" />
+      <Label fx:id="sumaZakupowLabel" layoutX="35.0" layoutY="156.0" text="Suma zakupów : 0.0 zł">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="269.0" text="Id koszyka : 1" />
+      <Label fx:id="iloscProduktowLabel" layoutX="37.0" layoutY="110.0" text="Ilość produktów w koszyku  : 0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="AkceptCheck" layoutX="432.0" layoutY="156.0" mnemonicParsing="false" onAction="#akceptacja" text="Akceptuję" textFill="#f20b0b">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="ZmianaAdresuuDostawyButton" layoutX="33.0" layoutY="221.0" mnemonicParsing="false" onAction="#adresDostawy" text="Zmiana adresu dostawy" />
+      <Button fx:id="wrocButton" layoutX="230.0" layoutY="221.0" mnemonicParsing="false" onAction="#wroc" prefHeight="25.0" prefWidth="141.0" text="Wróć" />
+   </children>
+</Pane>

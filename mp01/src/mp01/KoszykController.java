@@ -180,8 +180,12 @@ public class KoszykController {
 	}
 
 	@FXML
-	void przejdzDoPlatnosci(ActionEvent event) {
-
+	void przejdzDoPlatnosci(ActionEvent event) throws IOException {
+		Parent platnosc = FXMLLoader.load(getClass().getResource("Platnosc.fxml"));
+		Scene platnoscViewScene = new Scene(platnosc);
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(platnoscViewScene);
+		window.show();
 	}
 
 }
