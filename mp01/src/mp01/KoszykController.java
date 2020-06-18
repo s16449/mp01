@@ -25,34 +25,39 @@ public class KoszykController {
 
 	private Klient klient;
 	private ArrayList<Klient> lista = new ArrayList<>();
+	private List<Sklep> listaSklep = new ArrayList<>();
 	private List<Koszyk> koszykList = new ArrayList<>();
-
+	private List<TabelaKosz> ekstensje = new ArrayList<>();
+	private Sklep sklep;
+	private Koszyk kosz;
 	@FXML
-	private Button usunZkoszyka;
+	private Button usunZkoszykaButton;
 
 	@FXML
 	private Button platnosc;
 
 	@FXML
-	private TableColumn<Tabela, Double> cenaColumn;
+	private TableColumn<TabelaKosz, Double> cenaColumn;
 
+	@FXML
+	private Button zobaczOpisButton;
 	@FXML
 	private Label zalogowanyLabel;
 
 	@FXML
-	private TableColumn<Tabela, String> nazwaColumn;
+	private TableColumn<TabelaKosz, String> nazwaColumn;
 
 	@FXML
 	private Label iloscProdWkoszykuLabel;
 
 	@FXML
-	private TableView<Tabela> tabelaKoszyka;
+	private TableView<TabelaKosz> tabelaKoszyka;
 
 	@FXML
-	private TableColumn<Tabela, String> jednostkaColumn;
+	private TableColumn<TabelaKosz, String> jednostkaColumn;
 
 	@FXML
-	private TableColumn<Tabela, String> kategoriaColumn;
+	private TableColumn<TabelaKosz, String> kategoriaColumn;
 
 	@FXML
 	private Button wroc;
@@ -61,51 +66,58 @@ public class KoszykController {
 	private Label sumaZakupowLabel;
 
 	@FXML
-	private TableColumn<Tabela, Double> iloscColumn;
+	private TableColumn<TabelaKosz, Double> iloscColumn;
 
 	@FXML
 	private Label idKoszyka;
-	ObservableList<Tabela> kosz = FXCollections.observableArrayList();
-	@FXML
-	private Button zobaczOpis;
+	ObservableList<TabelaKosz> koszView = FXCollections.observableArrayList();
 
 	int count = 1;
+
 	@FXML
 	void initialize() {
 
-		Sklep sklep = new Sklep("zoo");
+		listaSklep.addAll(Sklep.getExtent(Sklep.class));
+		if (!listaSklep.isEmpty()) {
+			for (Sklep sk : listaSklep) {
+				if (sk.pobierzNazwe().equals("Zoo")) {
+					sklep = sk;
+					koszykList.addAll(Koszyk.getExtent(Koszyk.class));
+					for (Koszyk k : koszykList) {
+						if (k.zwrocIdKoszyka().equals(1)) {
+							kosz = k;
+						}
+					}
+				}
+			}
+		}
+		sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
 		zalogowanyLabel.setText("Witaj : " + LoginController.getKlient());
 
 		lista.addAll(Klient.getExtent(Klient.class));
-//		Koszyk koszyczek = sklep.utworzKoszyk();
-//		koszykList.add(koszyczek);
-//		if(!Koszyk.getExtent(Koszyk.class).isEmpty()) {
-//		koszykList.addAll(Koszyk.getExtent(Koszyk.class));
-//		}
+
 		for (Klient ls : lista) {
 			if (ls.zwrocLogin().equals(LoginController.getKlient())) {
 				klient = ls;
 			}
 		}
 
-	
-
-//		
-//		idKoszyka.setText("Id koszyka : " + koszyczek.zwrocIdKoszyka().toString());
-//		sumaZakupowLabel.setText(koszyczek.zwrocKosztKoszyka().toString());
 		System.out.println(klient.toString());
-	for (Koszyk k : koszykList) {
-			
-				System.out.println(k.toString());;
-		
-		}
-		nazwaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("nazwa"));
-		kategoriaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("kategoria"));
-		jednostkaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("jednostka"));
-		iloscColumn.setCellValueFactory(new PropertyValueFactory<Tabela, Double>("ilosc"));
-		cenaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, Double>("cena"));
+		for (Koszyk k : koszykList) {
 
-		tabelaKoszyka.setItems(getKoszyk());
+			System.out.println(k.toString());
+			;
+
+		}
+		nazwaColumn.setCellValueFactory(new PropertyValueFactory<TabelaKosz, String>("nazwa"));
+		kategoriaColumn.setCellValueFactory(new PropertyValueFactory<TabelaKosz, String>("kategoria"));
+		jednostkaColumn.setCellValueFactory(new PropertyValueFactory<TabelaKosz, String>("jednostka"));
+		iloscColumn.setCellValueFactory(new PropertyValueFactory<TabelaKosz, Double>("ilosc"));
+		cenaColumn.setCellValueFactory(new PropertyValueFactory<TabelaKosz, Double>("cena"));
+
+		tabelaKoszyka.setItems(setKoszyk(kosz.zwrocListeZakupow()));
+		Integer rows = tabelaKoszyka.getItems().size();
+		iloscProdWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + rows.toString());
 
 	}
 
@@ -119,24 +131,57 @@ public class KoszykController {
 		window.show();
 	}
 
-	public void setKoszyk(ArrayList<Tabela> tab) {
+	public ObservableList<TabelaKosz> setKoszyk(List<TabelaKosz> tab) {
 
 		for (Tabela t : tab) {
-			kosz.add(t);
+			koszView.add(new TabelaKosz(t.getNazwa(), t.getKategoria(), t.getJednostka(), t.getIlosc(), t.getCena()));
 		}
-		kosz.add(new Tabela("asd", "assaas", "jednostka", 2.2, 22.2));
-		kosz.add(new Tabela("asd", "assaaaas", "jednostssska", 2.32, 3322.2));
+
+		return koszView;
 
 	}
 
-	public ObservableList<Tabela> getKoszyk() {
-		// ObservableList<Tabela> kosz = FXCollections.observableArrayList();
-		count = count++;
-		System.out.println(count);
-		kosz.add(new Tabela("asd", "assaas", "jednostka", 2.2, 22.2));
-		kosz.add(new Tabela("asd", "assaaaas", "jednostssska", 2.32, 3322.2));
-		Koszyk.showExtent(Koszyk.class);
-		return kosz;
+	public ObservableList<TabelaKosz> removeKoszyk(List<Tabela> tab) {
+
+		for (Tabela t : tab) {
+			koszView.remove(t);
+		}
+
+		return koszView;
+
+	}
+
+	@FXML
+	void usunZkoszyka(ActionEvent event) {
+
+		TabelaKosz tabk = null;
+		if (!kosz.zwrocListeZakupow().isEmpty()) {
+			for (TabelaKosz tk : kosz.zwrocListeZakupow()) {
+				if (tk.getNazwa().equals(tabelaKoszyka.getSelectionModel().getSelectedItem().toString())) {
+					tabk = tk;
+				}
+			}
+		}
+		if (tabk != null) {
+
+			kosz.usunZlisty(tabk, tabk.getIlosc());
+
+		}
+		sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
+
+		iloscProdWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
+		tabelaKoszyka.refresh();
+		
+	}
+
+	@FXML
+	void zobaczOpis(ActionEvent event) {
+
+	}
+
+	@FXML
+	void przejdzDoPlatnosci(ActionEvent event) {
+
 	}
 
 }

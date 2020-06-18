@@ -43,7 +43,9 @@ public class Main extends Application {
 
 		List<Sklep> sklepLista = new ArrayList<Sklep>();
 		List<MagazynWysylkowy> magazynLista = new ArrayList<MagazynWysylkowy>();
+		List<Koszyk> koszykList = new ArrayList<>();
 		Sklep sklep = null;
+		Koszyk kosz = null;
 		MagazynWysylkowy magazynWysylkowy = null;
 		File file = new File("save.obj");
 		boolean wlacz = true;
@@ -63,6 +65,12 @@ public class Main extends Application {
 			for (Sklep ss : sklepLista) {
 				if (ss.pobierzNazwe().equals("Zoo"))
 					sklep = ss;
+				koszykList.addAll(Koszyk.getExtent(Koszyk.class));
+				for (Koszyk k : koszykList) {
+					if (k.zwrocIdKoszyka().equals(1)) {
+						kosz = k;
+					}
+				}
 
 			}
 
@@ -71,6 +79,7 @@ public class Main extends Application {
 			// sklep = Sklep.getInstanceOf();
 			magazynWysylkowy = MagazynWysylkowy.getInstanceOf();
 			sklep = new Sklep("Zoo");
+			kosz = sklep.utworzKoszyk();
 		}
 
 		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com", new Adres(), "stef",
@@ -80,17 +89,6 @@ public class Main extends Application {
 
 		
 
-//		Koszyk kosz = sklep.utworzKoszyk();
-//		Karma pro = new Karma("kokoszka", "kilogram");
-//		sklep.dodajProdukt(pro, 12.2);
-//		sklep.dodajIloscProduktu(pro, 15.5);
-//
-//		kosz.dodajDoKoszyka(pro, 4.3);
-//
-//		kosz.pokazZawartoscKoszyka();
-		Koszyk.showExtent(Koszyk.class);
-		Koszyk.showExtent(Klient.class);
-
 		Producent pr1 = new Producent("Brit");
 		System.out.println(pr1.toString());
 		Producent pr2 = new Producent("Taste of the Wild");
@@ -99,6 +97,7 @@ public class Main extends Application {
 		System.out.println(pr3.toString());
 		Producent pr4 = new Producent("KONG");
 		Producent pr5 = new Producent("Fit&Fun");
+		
 		Karma kr1 = new Karma(pr1, "Adult Large Breed : Lamb & Rice", "kilogram");
 		Karma kr2 = new Karma(pr1, "Junior Large Breed : Salmon & Herring ", "kilogram");
 		Karma kr3 = new Karma(pr1, "Adult Medium Breed : Lamb & Rice ", "kilogram");
@@ -151,16 +150,16 @@ public class Main extends Application {
 
 		
 		
-		sklep.dodajProdukt(kr1, 140.0);
-		sklep.dodajProdukt(kr2, 140.0);
-		sklep.dodajProdukt(kr3, 145.0);
-		sklep.dodajProdukt(kr4, 147.0);
-		sklep.dodajProdukt(kr5, 141.0);
+		sklep.dodajProdukt(kr1, 10.0);
+		sklep.dodajProdukt(kr2, 12.0);
+		sklep.dodajProdukt(kr3, 11.50);
+		sklep.dodajProdukt(kr4, 12.50);
+		sklep.dodajProdukt(kr5, 9.50);
 
-		sklep.dodajProdukt(kr6, 180.0);
-		sklep.dodajProdukt(kr7, 190.0);
-		sklep.dodajProdukt(kr8, 197.0);
-		sklep.dodajProdukt(kr9, 199.0);
+		sklep.dodajProdukt(kr6, 14.00);
+		sklep.dodajProdukt(kr7, 15.50);
+		sklep.dodajProdukt(kr8, 19.00);
+		sklep.dodajProdukt(kr9, 19.90);
 
 		sklep.dodajIloscProduktu(kr1, 140.0);
 		sklep.dodajIloscProduktu(kr2, 100.0);
@@ -197,23 +196,21 @@ public class Main extends Application {
 		sklep.utworzTabele(zb2);
 		sklep.utworzTabele(zb3);
 		sklep.utworzTabele(zb4);
-		
+//		
 		
 		
 	
-		Tabela.showExtent(Tabela.class);
+		//Tabela.showExtent(Tabela.class);
 		//sklep.pokazDostepnaIloscProduktow(sm7);
 		System.out.println("======================================");
-		
-		
 
 		launch(args);
 
 		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 		Koszyk.writeExtent(out);
-		// Sklep.writeExtent(out);
+	
 		out.close();
-		Koszyk.showExtent(Koszyk.class);
+	
 		System.out.println("zapisano");
 	}
 

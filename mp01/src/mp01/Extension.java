@@ -26,7 +26,7 @@ public class Extension implements Serializable {
 		if (allExtents.containsKey(theClass)) {
 			extent = allExtents.get(theClass);
 		} else {
-			
+
 			extent = new ArrayList();
 			allExtents.put(theClass, extent);
 		}
@@ -113,4 +113,15 @@ public class Extension implements Serializable {
 		}
 	}
 
+	public static Klient getKlientFromExtention(String login) {
+		List<Klient> klList = getExtent(Klient.class);
+		for (Klient kl : klList) {
+			if (kl.zwrocLogin().equals(login)) {
+				return kl;
+			}
+		}
+		return null;
+	}
+
+	
 }

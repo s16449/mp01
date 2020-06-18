@@ -22,7 +22,6 @@ public class Klient extends Osoba {
 	private List<Klient> listaKlientow = new ArrayList<>();
 	private List<Koszyk> koszyki = new ArrayList<>();
 	private File file = new File("save.obj");
-
 	private Map<String, Zamowienie> kwalifikowana = new TreeMap<>();
 
 	public Klient(String imie, String nazwisko, String nr_telefonu, String adresEmail, Adres adres, String login,
@@ -76,6 +75,8 @@ public class Klient extends Osoba {
 		return result;
 	}
 
+	
+	
 	public void dodajZmowienie(Zamowienie zamowienie) {
 		if (!kwalifikowana.isEmpty()) {
 
@@ -119,6 +120,11 @@ public class Klient extends Osoba {
 	public void dodajKoszyk(Koszyk kosz)
 	{
 		koszyki.add(kosz);
+	}
+	
+	public List<Koszyk> getKoszykList()
+	{
+		return koszyki;
 	}
 
 }

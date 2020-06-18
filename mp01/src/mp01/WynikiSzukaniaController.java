@@ -1,7 +1,5 @@
 package mp01;
 
-import java.awt.Checkbox;
-import java.awt.CheckboxGroup;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,43 +20,33 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import mp01.Sklep.Koszyk;
 
-public class OfertaSklepuController {
+public class WynikiSzukaniaController {
 
 	private List<Sklep> listaSklep = new ArrayList<>();
 	private ObservableList<Tabela> oferta = FXCollections.observableArrayList();
 	private ObservableList<Tabela> wyswietl = FXCollections.observableArrayList();
-	private List<Koszyk> koszykList = new ArrayList<>();
 	private List<Tabela> ekstensje = new ArrayList<>();
+	private List<Koszyk> koszykList = new ArrayList<>();
 	private Sklep skl;
 	private Klient klient;
 	private Koszyk kosz;
-	private Tabela tabela;
 	@FXML
 	private Button dodajDoKoszykaButton;
-
-	@FXML
-	private Label zalogowanyLabel;
 
 	@FXML
 	private TableColumn<Tabela, Double> cenaColumn;
 
 	@FXML
+	private Label zalogowanyLabel;
+
+	@FXML
+	private Button zobaczOpisButton;
+
+	@FXML
 	private TableColumn<Tabela, String> nazwaColumn;
 
 	@FXML
-	private CheckBox zabawkaCheck;
-
-	@FXML
-	private TableView<Tabela> tableView;
-
-	@FXML
-	private Label idKoszykaLabel;
-
-	@FXML
-	private Label ileProduktuWkoszykuLabel;
-
-	@FXML
-	private CheckBox karmaCheck;
+	private Button pokazZawartoscKoszykaButton;
 
 	@FXML
 	private Button wrocButton;
@@ -71,10 +58,7 @@ public class OfertaSklepuController {
 	private TableColumn<Tabela, String> kategoriaColumn;
 
 	@FXML
-	private Button zobaczOpisProduktuButton;
-
-	@FXML
-	private CheckBox smakolykCheck;
+	private Label iloscZakupowLabel;
 
 	@FXML
 	private Label sumaZakupowLabel;
@@ -83,13 +67,11 @@ public class OfertaSklepuController {
 	private TableColumn<Tabela, Double> iloscColumn;
 
 	@FXML
-	private Button wyswietlCheckButton;
+	private TableView<Tabela> tableView;
 
 	@FXML
 	void initialize() {
-
 		klient = Klient.getKlientFromExtention(LoginController.getKlient());
-
 		System.out.println(klient.toString() + " zalogowany ");
 		zalogowanyLabel.setText("Zalogowany : " + LoginController.getKlient());
 		listaSklep.addAll(Sklep.getExtent(Sklep.class));
@@ -107,7 +89,9 @@ public class OfertaSklepuController {
 			}
 		}
 		
-		ileProduktuWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
+		sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
+		iloscZakupowLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
+		
 		nazwaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("nazwa"));
 		kategoriaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("kategoria"));
 		jednostkaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("jednostka"));
@@ -119,45 +103,26 @@ public class OfertaSklepuController {
 	}
 
 	public ObservableList<Tabela> getOferta() {
+		wyswietl.clear();
+		String szukanie = DecisionController.getPoleSzukania();
+		System.out.println(szukanie);
 		oferta = FXCollections.observableArrayList(Tabela.getExtent(Tabela.class));
+		for (Tabela tb : oferta) {
+			if (tb.getNazwa().toLowerCase().contains(szukanie.toLowerCase())) {
+				wyswietl.add(tb);
+				System.out.println(tb);
+				// return wyswietl;
+			}
+		}
+		if (!wyswietl.isEmpty()) {
+			return wyswietl;
+		}
 		return oferta;
 
 	}
 
 	@FXML
-	void wyswietlCheckWtableView(ActionEvent event) {
-		wyswietl.clear();
-		if (karmaCheck.isSelected() || zabawkaCheck.isSelected() || smakolykCheck.isSelected()) {
-			if (karmaCheck.isSelected()) {
-				for (Tabela of : oferta) {
-					if (of.getKategoria().equals("Karma")) {
-						wyswietl.add(of);
-					}
-				}
-			}
-			if (zabawkaCheck.isSelected()) {
-				for (Tabela of : oferta) {
-					if (of.getKategoria().equals("Zabawka")) {
-						wyswietl.add(of);
-					}
-				}
-			}
-			if (smakolykCheck.isSelected()) {
-				for (Tabela of : oferta) {
-					if (of.getKategoria().equals("Smako³yk")) {
-						wyswietl.add(of);
-					}
-				}
-			}
-
-			tableView.setItems(wyswietl);
-		} else
-			tableView.setItems(getOferta());
-
-	}
-
-	@FXML
-	void dodajDoKoszyka(ActionEvent event) { // bedzie dodawal tylko po jednej jednostce
+	void DodajDoKoszyka(ActionEvent event) {
 		Tabela tab = null;
 		Produkt produkt = null;
 
@@ -192,15 +157,10 @@ public class OfertaSklepuController {
 
 			kosz.dodajDoKoszyka(produkt, 1.0);
 			sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
-			ileProduktuWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
+			iloscZakupowLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
 			tableView.refresh();
 		}
-	}
 
-	@FXML
-	void zobaczOpisProduktu(ActionEvent event) {
-
-		System.out.println(tableView.getSelectionModel().getSelectedItem().toString());
 	}
 
 	@FXML
@@ -209,6 +169,20 @@ public class OfertaSklepuController {
 		Scene decyzjaViewScene = new Scene(decyzja);
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(decyzjaViewScene);
+		window.show();
+	}
+
+	@FXML
+	void ZobaczOpis(ActionEvent event) {
+
+	}
+
+	@FXML
+	void pokazZawartoscKoszyka(ActionEvent event) throws IOException {
+		Parent koszyk = FXMLLoader.load(getClass().getResource("Koszyk.fxml"));
+		Scene koszykViewScene = new Scene(koszyk);
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(koszykViewScene);
 		window.show();
 	}
 

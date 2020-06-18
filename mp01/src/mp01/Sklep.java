@@ -83,17 +83,16 @@ public class Sklep extends Extension {
 		}
 		for (Map.Entry<Produkt, Double> entry : dostepnaIlosc.entrySet()) {
 			if (entry.getKey().getNazwaProduktu().equals(produkt.getNazwaProduktu())) {
-			//	System.out.println("Produkt : " + entry.getKey() + ", Ilosc : " + entry.getValue()
-						//+ entry.getKey().jednostka_miary);
+				// System.out.println("Produkt : " + entry.getKey() + ", Ilosc : " +
+				// entry.getValue()
+				// + entry.getKey().jednostka_miary);
 				ilosc = entry.getValue();
 			}
 		}
 
 		Tabela tab = new Tabela(nazwa, kategoria, jednostka, ilosc, cena);
-		Tabela.showExtent(Tabela.class);
+
 	}
-	
-	
 
 	public void pokazListeProduktow() {
 		for (Map.Entry<Produkt, Double> entry : listaProduktow.entrySet()) {
@@ -138,6 +137,26 @@ public class Sklep extends Extension {
 
 		for (Map.Entry<Produkt, Double> entry : dostepnaIlosc.entrySet()) {
 			if (entry.getKey().getNazwaProduktu() == produkt.getNazwaProduktu() && entry.getValue() >= ilosc) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
+
+	public void zmniejszIloscProduktuGui(String string) {
+		for (Map.Entry<Produkt, Double> entry : listaProduktow.entrySet()) {
+			if (entry.getKey().getNazwaProduktu().equals(string)) {
+
+				zmienIloscProduktu(entry.getKey(), entry.getValue() - 1.0);
+			}
+		}
+
+	}
+
+	public Produkt zwrocProdukt(String string) {
+		for (Map.Entry<Produkt, Double> entry : listaProduktow.entrySet()) {
+			if (entry.getKey().getNazwaProduktu().equals(string)) {
+
 				return entry.getKey();
 			}
 		}
@@ -199,10 +218,11 @@ public class Sklep extends Extension {
 		private Sklep sklep;
 		private Integer iloscProduktow = 0;
 		private Double koszt = 0.0;
+		private Boolean zablokowany = false;
+		private ArrayList<TabelaKosz> listaZakupow = new ArrayList<>();
 
 		private Koszyk() {
 
-			
 			System.out.println(id_koszyk + " id koszyka");
 			this.sklep = zwrocSklep();
 
@@ -212,7 +232,16 @@ public class Sklep extends Extension {
 			if (sklep.pobierzProdukt(produkt, ilosc) != null && sklep.pobierzCene(produkt, ilosc) != null) {
 				koszykMap.put(sklep.pobierzProdukt(produkt, ilosc), sklep.pobierzCene(produkt, ilosc));
 				sklep.usunPobraneIlosci(produkt, ilosc); // ale tylko po akcjeptacji zamowienia
-				koszt += sklep.zwrocCeneProduku(produkt) * ilosc;
+				koszt = koszt + sklep.zwrocCeneProduku(produkt);
+
+			}
+		}
+
+		public void usunWkoszyku(Produkt produkt, Double ilosc) {
+			if (sklep.pobierzProdukt(produkt, ilosc) != null && sklep.pobierzCene(produkt, ilosc) != null) {
+				koszykMap.remove(sklep.pobierzProdukt(produkt, ilosc), sklep.pobierzCene(produkt, ilosc));
+				sklep.dodajIloscProduktu(produkt, ilosc);// ale tylko po akcjeptacji zamowienia
+				koszt = koszt - sklep.zwrocCeneProduku(produkt);// * ilosc;
 
 			}
 		}
@@ -223,6 +252,38 @@ public class Sklep extends Extension {
 				for (Map.Entry<Produkt, Double> entry : koszykMap.entrySet()) {
 					iloscProduktow++;
 					System.out.println(entry.getKey().toString() + entry.getValue());
+				}
+			}
+		}
+
+		public void czyscListe() {
+			koszt = 0.0;
+			iloscProduktow = 0;
+			listaZakupow.clear();
+		}
+
+		public List<TabelaKosz> zwrocListeZakupow() {
+			return listaZakupow;
+		}
+
+		public void dodajDoListy(TabelaKosz tab) {
+			//koszt = koszt + tab.getCena();
+			listaZakupow.add(tab);
+			iloscProduktow++;
+
+		}
+
+		public void usunZlisty(TabelaKosz tab, Double db) {
+			koszt = koszt - tab.getCena()*db;
+			iloscProduktow--;
+			listaZakupow.remove(tab);
+
+		}
+
+		public void usunZlisty(String name) {
+			for (Tabela t : listaZakupow) {
+				if (t.getNazwa().equals(name)) {
+					listaZakupow.remove(t);
 				}
 			}
 		}
@@ -238,6 +299,14 @@ public class Sklep extends Extension {
 		public String toString() {
 			return "id Koszyka " + id_koszyk + ", zawartosc produktow w koszyku : " + iloscProduktow
 					+ ", laczna cena : " + koszt;
+		}
+
+		public void setBlocked() {
+			zablokowany = true;
+		}
+
+		public Boolean checkBlock() {
+			return zablokowany;
 		}
 
 	}

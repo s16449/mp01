@@ -2,8 +2,10 @@ package mp01;
 
 public class Tabela extends Extension{
 	
-	private String nazwa, kategoria , jednostka;
-	private Double ilosc,cena;
+	protected String nazwa;
+	protected String kategoria;
+	protected String jednostka;
+	protected Double ilosc,cena;
 	
 	
 
@@ -18,6 +20,11 @@ public class Tabela extends Extension{
 
 	public String getNazwa() {
 		return nazwa;
+	}
+	
+	public void dodajIlosc(Double db)
+	{
+		ilosc += db;
 	}
 
 	public void setNazwa(String nazwa) {

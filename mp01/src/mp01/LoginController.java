@@ -15,13 +15,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mp01.Sklep.Koszyk;
 
 public class LoginController {
 
 	private List<Klient> lista = new ArrayList<>();
-	Boolean zezwolenie = null;
-	static String klient = null;
-
+	private Boolean zezwolenie = null;
+	private static String klient = null;
+	private List<Koszyk> listaKoszykow = new ArrayList<>(Koszyk.getExtent(Koszyk.class));
 	@FXML
 	private PasswordField passField;
 
@@ -48,6 +49,10 @@ public class LoginController {
 
 	@FXML
 	void initialize() {
+		for(Koszyk k : listaKoszykow)
+		{
+			k.czyscListe();
+		}
 		// wyszukaj.setText("Dodaj do koszyka");
 		// suma.setText("Ssss");
 	}
@@ -90,10 +95,10 @@ public class LoginController {
 		}
 
 	}
-	static public String getKlient() {
+	public static String getKlient() {
 		return klient;
 	}
-	static public void setKlient(String name) {
+	public static void setKlient(String name) {
 		klient = name;
 	}
 	
