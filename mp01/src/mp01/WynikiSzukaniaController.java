@@ -88,10 +88,10 @@ public class WynikiSzukaniaController {
 				}
 			}
 		}
-		
+
 		sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
 		iloscZakupowLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
-		
+
 		nazwaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("nazwa"));
 		kategoriaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("kategoria"));
 		jednostkaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("jednostka"));
@@ -136,8 +136,9 @@ public class WynikiSzukaniaController {
 				produkt = skl.zwrocProdukt(tableView.getSelectionModel().getSelectedItem().toString());
 				tab = tb;
 				if (tab.getIlosc() >= 1) {
+					tab.setIlosc(tab.getIlosc() - 1.0);
 				}
-				tab.setIlosc(tab.getIlosc() - 1.0);
+
 			}
 		}
 
@@ -148,14 +149,17 @@ public class WynikiSzukaniaController {
 					temp = ttt;
 				}
 			}
+			if (tab.getIlosc() >0) {
 			if (temp != null) {
 				temp.dodajIlosc(1.0);
 			} else {
 				kosz.dodajDoListy(
 						new TabelaKosz(tab.getNazwa(), tab.getKategoria(), tab.getJednostka(), 1.0, tab.getCena()));
 			}
-
-			kosz.dodajDoKoszyka(produkt, 1.0);
+			
+				kosz.dodajDoKoszyka(produkt, 1.0);
+				System.out.println("niedodaje");
+			}
 			sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
 			iloscZakupowLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
 			tableView.refresh();

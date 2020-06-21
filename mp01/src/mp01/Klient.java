@@ -108,6 +108,13 @@ public class Klient extends Osoba {
 		}
 
 	}
+	public void pokazZamowienia()
+	{
+		for (Map.Entry<String, Zamowienie> entry : kwalifikowana.entrySet()) {
+			
+			System.out.println(entry.getKey().toString() + entry.getValue().toString());
+		}
+	}
 
 	public String zwrocLogin() {
 		return login;

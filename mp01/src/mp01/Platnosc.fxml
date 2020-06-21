@@ -38,5 +38,10 @@
       </CheckBox>
       <Button fx:id="ZmianaAdresuuDostawyButton" layoutX="33.0" layoutY="221.0" mnemonicParsing="false" onAction="#adresDostawy" text="Zmiana adresu dostawy" />
       <Button fx:id="wrocButton" layoutX="230.0" layoutY="221.0" mnemonicParsing="false" onAction="#wroc" prefHeight="25.0" prefWidth="141.0" text="Wróć" />
+      <Label fx:id="brakArtwKoszykuLabel" layoutX="379.0" layoutY="55.0" text="Koszyk jest pusty !" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -153,25 +153,27 @@ public class KoszykController {
 
 	@FXML
 	void usunZkoszyka(ActionEvent event) {
-
+		Produkt produkt = null;
 		TabelaKosz tabk = null;
 		if (!kosz.zwrocListeZakupow().isEmpty()) {
 			for (TabelaKosz tk : kosz.zwrocListeZakupow()) {
 				if (tk.getNazwa().equals(tabelaKoszyka.getSelectionModel().getSelectedItem().toString())) {
 					tabk = tk;
+					produkt= sklep.zwrocProdukt(tabelaKoszyka.getSelectionModel().getSelectedItem().toString());
 				}
 			}
 		}
 		if (tabk != null) {
 
 			kosz.usunZlisty(tabk, tabk.getIlosc());
+			sklep.dodajIloscProduktu(produkt, tabk.getIlosc());
 
 		}
 		sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
 
 		iloscProdWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
 		tabelaKoszyka.refresh();
-		
+
 	}
 
 	@FXML

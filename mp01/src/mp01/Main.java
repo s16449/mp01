@@ -81,136 +81,123 @@ public class Main extends Application {
 			sklep = new Sklep("Zoo");
 			kosz = sklep.utworzKoszyk();
 		}
-
-		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com", new Adres(), "stef",
-				"bohnia");
-		Klient kl2 = new Klient("Czeslaw", "Burczymucha", "503-222-111", "czesio@gmail.com",
-				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "czes", "czeslaw", "512-1233-12312");
-
-		
-
-		Producent pr1 = new Producent("Brit");
-		System.out.println(pr1.toString());
-		Producent pr2 = new Producent("Taste of the Wild");
-		System.out.println(pr2.toString());
-		Producent pr3 = new Producent("Carnilove");
-		System.out.println(pr3.toString());
-		Producent pr4 = new Producent("KONG");
-		Producent pr5 = new Producent("Fit&Fun");
-		
-		Karma kr1 = new Karma(pr1, "Adult Large Breed : Lamb & Rice", "kilogram");
-		Karma kr2 = new Karma(pr1, "Junior Large Breed : Salmon & Herring ", "kilogram");
-		Karma kr3 = new Karma(pr1, "Adult Medium Breed : Lamb & Rice ", "kilogram");
-		Karma kr4 = new Karma(pr1, "Senior All Breed : Salmon & Herring", "kilogram");
-		Karma kr5 = new Karma(pr1, "Adult Medium Breed : Lamb & Rice", "kilogram");
-		Karma kr6 = new Karma(pr2, "Pacific Stream", "kilogram");
-		Karma kr7 = new Karma(pr2, "Wetlands", "kilogram");
-		Karma kr8 = new Karma(pr2, "SouthWest Canyon", "kilogram");
-		Karma kr9 = new Karma(pr2, "Sierra Mountain", "kilogram");
-
-		Smakolyk sm1 = new Smakolyk(pr1, "Mineral Hum Puppy", "opakowanie");
-		Smakolyk sm2 = new Smakolyk(pr1, "Meat Snacks : Pure Salmon Slices", "opakowanie");
-		Smakolyk sm3 = new Smakolyk(pr1, "Endurance : Lamb enriched with Banana", "opakowanie");
-		Smakolyk sm4 = new Smakolyk(pr1, "Antiparasitic  : Salmon enriched with Chamomile", "opakowanie");
-		Smakolyk sm5 = new Smakolyk(pr3, "Snack Dog Duck & Rosemary", "opakowanie");
-		Smakolyk sm6 = new Smakolyk(pr3, "Snack Fresh Soft Quail + Oregano", "opakowanie");
-		Smakolyk sm7 = new Smakolyk(pr3, "Snack Dog Trout & Dill", "opakowanie");
-
-		Zabawka zb1 = new Zabawka(pr4, "Goodie Bone Puppy", "Sztuka");
-		Zabawka zb2 = new Zabawka(pr5, "Pi³ka tenisowa", "Sztuka");
-		Zabawka zb3 = new Zabawka(pr4, "Zabawka dla szczeni¹t Puppy S", "Sztuka");
-		Zabawka zb4 = new Zabawka(pr4, "Frisbee czerwone", "Sztuka");
-		
-		sklep.dodajProdukt(zb1, 19.50);
-		sklep.dodajProdukt(zb2, 2.50);
-		sklep.dodajProdukt(zb3, 22.70);
-		sklep.dodajProdukt(zb4, 39.50);
-		sklep.dodajIloscProduktu(zb1, 12.0);
-		sklep.dodajIloscProduktu(zb2, 43.0);
-		sklep.dodajIloscProduktu(zb3, 10.0);
-		sklep.dodajIloscProduktu(zb4, 8.0);
-		
-		
-		
-		
-		sklep.dodajProdukt(sm1, 11.0);
-		sklep.dodajProdukt(sm2, 12.0);
-		sklep.dodajProdukt(sm3, 12.0);
-		sklep.dodajProdukt(sm4, 12.0);
-		sklep.dodajProdukt(sm5, 9.0);
-		sklep.dodajProdukt(sm6, 9.0);
-		sklep.dodajProdukt(sm7, 9.0);
-		sklep.dodajIloscProduktu(sm1, 100.0);
-		sklep.dodajIloscProduktu(sm2, 190.0);
-		sklep.dodajIloscProduktu(sm3, 70.0);
-		sklep.dodajIloscProduktu(sm4, 50.0);
-		sklep.dodajIloscProduktu(sm5, 40.0);
-		sklep.dodajIloscProduktu(sm6, 120.0);
-		sklep.dodajIloscProduktu(sm7, 129.0);
-
-		
-		
-		sklep.dodajProdukt(kr1, 10.0);
-		sklep.dodajProdukt(kr2, 12.0);
-		sklep.dodajProdukt(kr3, 11.50);
-		sklep.dodajProdukt(kr4, 12.50);
-		sklep.dodajProdukt(kr5, 9.50);
-
-		sklep.dodajProdukt(kr6, 14.00);
-		sklep.dodajProdukt(kr7, 15.50);
-		sklep.dodajProdukt(kr8, 19.00);
-		sklep.dodajProdukt(kr9, 19.90);
-
-		sklep.dodajIloscProduktu(kr1, 140.0);
-		sklep.dodajIloscProduktu(kr2, 100.0);
-		sklep.dodajIloscProduktu(kr3, 200.0);
-		sklep.dodajIloscProduktu(kr4, 340.0);
-		sklep.dodajIloscProduktu(kr5, 200.0);
-
-		sklep.dodajIloscProduktu(kr6, 180.0);
-		sklep.dodajIloscProduktu(kr7, 290.0);
-		sklep.dodajIloscProduktu(kr8, 300.0);
-		sklep.dodajIloscProduktu(kr9, 233.0);
-
-		sklep.pokazListeProduktow();
-		
-		
-		System.out.println("======================================");
-		sklep.utworzTabele(sm1);
-		sklep.utworzTabele(sm2);
-		sklep.utworzTabele(sm3);
-		sklep.utworzTabele(sm4);
-		sklep.utworzTabele(sm5);
-		sklep.utworzTabele(sm6);
-		sklep.utworzTabele(sm7);
-		sklep.utworzTabele(kr1);
-		sklep.utworzTabele(kr2);
-		sklep.utworzTabele(kr3);
-		sklep.utworzTabele(kr4);
-		sklep.utworzTabele(kr5);
-		sklep.utworzTabele(kr6);
-		sklep.utworzTabele(kr7);
-		sklep.utworzTabele(kr8);
-		sklep.utworzTabele(kr9);
-		sklep.utworzTabele(zb1);
-		sklep.utworzTabele(zb2);
-		sklep.utworzTabele(zb3);
-		sklep.utworzTabele(zb4);
+//
+//		Klient kl = new Klient("Stefan", "Burczymucha", "503-232-211", "stefeg@gmail.com", new Adres(), "stef",
+//				"bohnia");
+//		Klient kl2 = new Klient("Czeslaw", "Burczymucha", "503-222-111", "czesio@gmail.com",
+//				new Adres("Opaczewska 33 m 33", "Warszawa", "02-442"), "czes", "czeslaw", "512-1233-12312");
+//
+//		Producent pr1 = new Producent("Brit");
+//		Producent pr2 = new Producent("Taste of the Wild");
+//		Producent pr3 = new Producent("Carnilove");
+//		Producent pr4 = new Producent("KONG");
+//		Producent pr5 = new Producent("Fit&Fun");
+//
+//		Karma kr1 = new Karma(pr1, "Adult Large Breed : Lamb & Rice", "kilogram");
+//		Karma kr2 = new Karma(pr1, "Junior Large Breed : Salmon & Herring ", "kilogram");
+//		Karma kr3 = new Karma(pr1, "Adult Medium Breed : Lamb & Rice ", "kilogram");
+//		Karma kr4 = new Karma(pr1, "Senior All Breed : Salmon & Herring", "kilogram");
+//		Karma kr5 = new Karma(pr1, "Adult Medium Breed : Lamb & Rice", "kilogram");
+//		Karma kr6 = new Karma(pr2, "Pacific Stream", "kilogram");
+//		Karma kr7 = new Karma(pr2, "Wetlands", "kilogram");
+//		Karma kr8 = new Karma(pr2, "SouthWest Canyon", "kilogram");
+//		Karma kr9 = new Karma(pr2, "Sierra Mountain", "kilogram");
+//
+//		Smakolyk sm1 = new Smakolyk(pr1, "Mineral Hum Puppy", "opakowanie");
+//		Smakolyk sm2 = new Smakolyk(pr1, "Meat Snacks : Pure Salmon Slices", "opakowanie");
+//		Smakolyk sm3 = new Smakolyk(pr1, "Endurance : Lamb enriched with Banana", "opakowanie");
+//		Smakolyk sm4 = new Smakolyk(pr1, "Antiparasitic  : Salmon enriched with Chamomile", "opakowanie");
+//		Smakolyk sm5 = new Smakolyk(pr3, "Snack Dog Duck & Rosemary", "opakowanie");
+//		Smakolyk sm6 = new Smakolyk(pr3, "Snack Fresh Soft Quail + Oregano", "opakowanie");
+//		Smakolyk sm7 = new Smakolyk(pr3, "Snack Dog Trout & Dill", "opakowanie");
+//
+//		Zabawka zb1 = new Zabawka(pr4, "Goodie Bone Puppy", "Sztuka");
+//		Zabawka zb2 = new Zabawka(pr5, "Pi³ka tenisowa", "Sztuka");
+//		Zabawka zb3 = new Zabawka(pr4, "Zabawka dla szczeni¹t Puppy S", "Sztuka");
+//		Zabawka zb4 = new Zabawka(pr4, "Frisbee czerwone", "Sztuka");
+//
+//		sklep.dodajProdukt(zb1, 19.50);
+//		sklep.dodajProdukt(zb2, 2.50);
+//		sklep.dodajProdukt(zb3, 22.00);
+//		sklep.dodajProdukt(zb4, 39.50);
+//		sklep.dodajIloscProduktu(zb1, 12.0);
+//		sklep.dodajIloscProduktu(zb2, 43.0);
+//		sklep.dodajIloscProduktu(zb3, 10.0);
+//		sklep.dodajIloscProduktu(zb4, 8.0);
+//
+//		sklep.dodajProdukt(sm1, 11.0);
+//		sklep.dodajProdukt(sm2, 12.0);
+//		sklep.dodajProdukt(sm3, 12.0);
+//		sklep.dodajProdukt(sm4, 12.0);
+//		sklep.dodajProdukt(sm5, 9.0);
+//		sklep.dodajProdukt(sm6, 9.0);
+//		sklep.dodajProdukt(sm7, 9.0);
+//		sklep.dodajIloscProduktu(sm1, 100.0);
+//		sklep.dodajIloscProduktu(sm2, 190.0);
+//		sklep.dodajIloscProduktu(sm3, 70.0);
+//		sklep.dodajIloscProduktu(sm4, 50.0);
+//		sklep.dodajIloscProduktu(sm5, 40.0);
+//		sklep.dodajIloscProduktu(sm6, 120.0);
+//		sklep.dodajIloscProduktu(sm7, 129.0);
+//
+//		sklep.dodajProdukt(kr1, 10.0);
+//		sklep.dodajProdukt(kr2, 12.0);
+//		sklep.dodajProdukt(kr3, 11.50);
+//		sklep.dodajProdukt(kr4, 12.50);
+//		sklep.dodajProdukt(kr5, 9.50);
+//
+//		sklep.dodajProdukt(kr6, 14.00);
+//		sklep.dodajProdukt(kr7, 15.50);
+//		sklep.dodajProdukt(kr8, 19.00);
+//		sklep.dodajProdukt(kr9, 19.90);
+//
+//		sklep.dodajIloscProduktu(kr1, 140.0);
+//		sklep.dodajIloscProduktu(kr2, 100.0);
+//		sklep.dodajIloscProduktu(kr3, 200.0);
+//		sklep.dodajIloscProduktu(kr4, 340.0);
+//		sklep.dodajIloscProduktu(kr5, 200.0);
+//
+//		sklep.dodajIloscProduktu(kr6, 180.0);
+//		sklep.dodajIloscProduktu(kr7, 290.0);
+//		sklep.dodajIloscProduktu(kr8, 300.0);
+//		sklep.dodajIloscProduktu(kr9, 233.0);
+//
+//		// sklep.pokazListeProduktow();
+//
+//		System.out.println("======================================");
+//		sklep.utworzTabele(sm1);
+//		sklep.utworzTabele(sm2);
+//		sklep.utworzTabele(sm3);
+//		sklep.utworzTabele(sm4);
+//		sklep.utworzTabele(sm5);
+//		sklep.utworzTabele(sm6);
+//		sklep.utworzTabele(sm7);
+//		sklep.utworzTabele(kr1);
+//		sklep.utworzTabele(kr2);
+//		sklep.utworzTabele(kr3);
+//		sklep.utworzTabele(kr4);
+//		sklep.utworzTabele(kr5);
+//		sklep.utworzTabele(kr6);
+//		sklep.utworzTabele(kr7);
+//		sklep.utworzTabele(kr8);
+//		sklep.utworzTabele(kr9);
+//		sklep.utworzTabele(zb1);
+//		sklep.utworzTabele(zb2);
+//		sklep.utworzTabele(zb3);
+//		sklep.utworzTabele(zb4);
 //		
-		
-		
-	
-		//Tabela.showExtent(Tabela.class);
-		//sklep.pokazDostepnaIloscProduktow(sm7);
+
+		// Tabela.showExtent(Tabela.class);
+		// sklep.pokazDostepnaIloscProduktow(sm7);
 		System.out.println("======================================");
 
 		launch(args);
 
 		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 		Koszyk.writeExtent(out);
-	
+
 		out.close();
-	
+
 		System.out.println("zapisano");
 	}
 

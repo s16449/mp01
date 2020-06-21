@@ -106,7 +106,7 @@ public class OfertaSklepuController {
 				}
 			}
 		}
-		
+
 		ileProduktuWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
 		nazwaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("nazwa"));
 		kategoriaColumn.setCellValueFactory(new PropertyValueFactory<Tabela, String>("kategoria"));
@@ -171,8 +171,10 @@ public class OfertaSklepuController {
 				produkt = skl.zwrocProdukt(tableView.getSelectionModel().getSelectedItem().toString());
 				tab = tb;
 				if (tab.getIlosc() >= 1) {
+
+					tab.setIlosc(tab.getIlosc() - 1.0);
 				}
-				tab.setIlosc(tab.getIlosc() - 1.0);
+
 			}
 		}
 
@@ -183,14 +185,16 @@ public class OfertaSklepuController {
 					temp = ttt;
 				}
 			}
-			if (temp != null) {
-				temp.dodajIlosc(1.0);
-			} else {
-				kosz.dodajDoListy(
-						new TabelaKosz(tab.getNazwa(), tab.getKategoria(), tab.getJednostka(), 1.0, tab.getCena()));
-			}
+			if (tab.getIlosc() >0) {
+				if (temp != null) {
+					temp.dodajIlosc(1.0);
+				} else {
+					kosz.dodajDoListy(
+							new TabelaKosz(tab.getNazwa(), tab.getKategoria(), tab.getJednostka(), 1.0, tab.getCena()));
+				}
 
-			kosz.dodajDoKoszyka(produkt, 1.0);
+				kosz.dodajDoKoszyka(produkt, 1.0);
+			}
 			sumaZakupowLabel.setText("Suma zakupów : " + kosz.zwrocKosztKoszyka().toString() + " PLN");
 			ileProduktuWkoszykuLabel.setText("Iloœæ produktów w koszyku : " + kosz.zwrocListeZakupow().size());
 			tableView.refresh();

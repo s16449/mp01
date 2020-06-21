@@ -41,9 +41,15 @@ public class PlatnoscController {
 
 	@FXML
 	private Label iloscProduktowLabel;
+	@FXML
+	private Label brakArtwKoszykuLabel;
+	
+	
+	
 
 	@FXML
 	void initialize() {
+		brakArtwKoszykuLabel.setVisible(false);
 		loginLabel.setText("Zalogowano : " + LoginController.getKlient());
 		listaSklep.addAll(Sklep.getExtent(Sklep.class));
 		if (!listaSklep.isEmpty()) {
@@ -66,13 +72,16 @@ public class PlatnoscController {
 	@FXML
 	void dokonajPlatnosci(ActionEvent event) throws IOException {
 
-		if (AkceptCheck.isSelected()) {
-			Parent wyborPlat = FXMLLoader.load(getClass().getResource("WyborPlatnosci.fxml"));
-			Scene wyborPlatnoscViewScene = new Scene(wyborPlat);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			window.setScene(wyborPlatnoscViewScene);
-			window.show();
-
+		if (kosz.zwrocListeZakupow().size() == 0) {
+			brakArtwKoszykuLabel.setVisible(true);
+		} else {
+			if (AkceptCheck.isSelected()) {
+				Parent wyborPlat = FXMLLoader.load(getClass().getResource("WyborPlatnosci.fxml"));
+				Scene wyborPlatnoscViewScene = new Scene(wyborPlat);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				window.setScene(wyborPlatnoscViewScene);
+				window.show();
+			}
 		}
 
 	}
@@ -83,8 +92,12 @@ public class PlatnoscController {
 	}
 
 	@FXML
-	void adresDostawy(ActionEvent event) {
-
+	void adresDostawy(ActionEvent event) throws IOException {
+		Parent adres = FXMLLoader.load(getClass().getResource("zmianaAdresu.fxml"));
+		Scene adresViewScene = new Scene(adres);
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(adresViewScene);
+		window.show();
 	}
 
 	@FXML
